@@ -20,5 +20,5 @@
       }
     }
   },
-  "tags": ["tpye:util", "scope:api"]
+  "tags": ["type:util", "scope:api"]
 }
