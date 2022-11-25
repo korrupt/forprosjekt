@@ -8,6 +8,12 @@ tmp
 # dependencies
 node_modules
 
+# persistence
+/database/**/*
+!/database
+!/database/backups
+!/database/data
+
 # IDEs and editors
 /.idea
 .project
