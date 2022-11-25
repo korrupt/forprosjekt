@@ -15,7 +15,16 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@forprosjekt/api-interfaces": ["libs/api-interfaces/src/index.ts"]
+      "@forprosjekt/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@forprosjekt/api/database/config": [
+        "libs/api/database/config/src/index.ts"
+      ],
+      "@forprosjekt/api/database/feature": [
+        "libs/api/database/feature/src/index.ts"
+      ],
+      "@forprosjekt/api/database/utils": [
+        "libs/api/database/utils/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
