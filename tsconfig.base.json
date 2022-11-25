@@ -16,21 +16,14 @@
     "baseUrl": ".",
     "paths": {
       "@forprosjekt/api/auth/config": ["libs/api/auth/config/src/index.ts"],
-      "@forprosjekt/api/auth/data-access": [
-        "libs/api/auth/data-access/src/index.ts"
-      ],
+      "@forprosjekt/api/auth/data-access": ["libs/api/auth/data-access/src/index.ts"],
       "@forprosjekt/api/auth/feature": ["libs/api/auth/feature/src/index.ts"],
       "@forprosjekt/api/auth/utils": ["libs/api/auth/utils/src/index.ts"],
       "@forprosjekt/api/core/feature": ["libs/api/core/feature/src/index.ts"],
-      "@forprosjekt/api/database/config": [
-        "libs/api/database/config/src/index.ts"
-      ],
-      "@forprosjekt/api/database/feature": [
-        "libs/api/database/feature/src/index.ts"
-      ],
-      "@forprosjekt/api/database/utils": [
-        "libs/api/database/utils/src/index.ts"
-      ],
+      "@forprosjekt/api/database/config": ["libs/api/database/config/src/index.ts"],
+      "@forprosjekt/api/database/feature": ["libs/api/database/feature/src/index.ts"],
+      "@forprosjekt/api/database/utils": ["libs/api/database/utils/src/index.ts"],
+      "@forprosjekt/api/user/data-access": ["libs/api/user/data-access/src/index.ts"],
       "@forprosjekt/api/user/feature": ["libs/api/user/feature/src/index.ts"],
       "@forprosjekt/api/user/utils": ["libs/api/user/utils/src/index.ts"],
       "@forprosjekt/shared/models": ["libs/shared/models/src/index.ts"]

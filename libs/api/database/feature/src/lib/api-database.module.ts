@@ -11,6 +11,7 @@ import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
       useFactory: (conf: ApiDatabaseConfigService) =>
         ({
           uri: conf.URI,
+          dbName: 'forprosjekt',
         } as MongooseModuleOptions),
     }),
   ],

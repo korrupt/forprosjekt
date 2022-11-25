@@ -5,9 +5,27 @@ import { ConfigService } from '@nestjs/config';
 export class ApiDatabaseConfigService {
   constructor(private conf: ConfigService) {}
 
+  get HOST(): string {
+    return this.conf.get('database.HOST');
+  }
+
+  get PORT(): number {
+    return this.conf.get('database.PORT');
+  }
+
+  get USER(): string {
+    return this.conf.get('database.USER');
+  }
+
+  get PASS(): string {
+    return this.conf.get('database.PASSWORD');
+  }
+
+  get DB(): string {
+    return this.conf.get('database.DB');
+  }
+
   get URI() {
-    return `mongodb://${this.conf.get('database.USER')}:${this.conf.get('database.PASSWORD')}@${this.conf.get(
-      'database.HOST',
-    )}:${this.conf.get('database.PORT')}/?authMechanism=DEFAULT&authSource=${this.conf.get('database.DB')}`;
+    return `mongodb://${this.USER}:${this.PASS}@${this.HOST}:${this.PORT}/?authMechanism=DEFAULT&authSource=${this.DB}`;
   }
 }
