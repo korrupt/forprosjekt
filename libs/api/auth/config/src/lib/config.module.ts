@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from "@nestjs/config";
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from 'joi';
 import { ApiAuthConfigService } from './config.service';
 import configuration from './configuration';
@@ -11,8 +11,8 @@ import configuration from './configuration';
       validationSchema: Joi.object({
         AUTH_SECRET: Joi.string().required(),
         AUTH_EXPIRY: Joi.string().default('2h'),
-      })
-    })
+      }),
+    }),
   ],
   providers: [ConfigService, ApiAuthConfigService],
   exports: [ConfigService, ApiAuthConfigService],

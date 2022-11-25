@@ -1,7 +1,7 @@
 import { ExtractJwt, Strategy, StrategyOptions } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
-import { ApiAuthConfigService } from "@forprosjekt/api/auth/config";
+import { ApiAuthConfigService } from '@forprosjekt/api/auth/config';
 import { JwtPayload } from '@forprosjekt/shared/models';
 
 @Injectable()

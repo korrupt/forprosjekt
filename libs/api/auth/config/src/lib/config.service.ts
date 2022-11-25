@@ -1,9 +1,9 @@
-import { Injectable } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
+import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class ApiAuthConfigService {
-  constructor(private conf: ConfigService){}
+  constructor(private conf: ConfigService) {}
 
   get SECRET(): string {
     return this.conf.get('auth.SECRET');

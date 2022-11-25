@@ -1,4 +1,4 @@
-import { registerAs } from "@nestjs/config";
+import { registerAs } from '@nestjs/config';
 
 export default registerAs('database', () => {
   return {
@@ -6,6 +6,6 @@ export default registerAs('database', () => {
     HOST: process.env.DATABASE_HOST,
     USER: process.env.DATABASE_USER,
     PASSWORD: process.env.DATABASE_PASS,
-    DB: process.env.DATABASE_DB
-  }
+    DB: process.env.DATABASE_DB,
+  };
 });

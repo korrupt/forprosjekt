@@ -6,6 +6,6 @@ import { Module } from '@nestjs/common';
 
 @Module({
   imports: [ApiDatabaseModule, ApiAuthModule, ApiUserModule],
-  providers: [ApiAuthService]
+  providers: [ApiAuthService],
 })
 export class ApiCoreModule {}
