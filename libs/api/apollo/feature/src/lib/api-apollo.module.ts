@@ -8,6 +8,7 @@ import { RootResolver } from '@forprosjekt/api/apollo/data-access';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: true,
+      playground: true,
     }),
   ],
   providers: [RootResolver],

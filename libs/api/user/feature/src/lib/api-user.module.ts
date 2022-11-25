@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { User, UserAuth, UserAuthSchema, UserSchema } from '@forprosjekt/api/user/utils';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ApiUserService, ApiUserAuthService } from '@forprosjekt/api/user/data-access';
+import { ApiUserService, ApiUserAuthService, UserAuthResolver } from '@forprosjekt/api/user/data-access';
 
 @Module({
   imports: [
@@ -10,6 +10,6 @@ import { ApiUserService, ApiUserAuthService } from '@forprosjekt/api/user/data-a
       { name: UserAuth.name, schema: UserAuthSchema },
     ]),
   ],
-  providers: [ApiUserService, ApiUserAuthService],
+  providers: [ApiUserService, ApiUserAuthService, UserAuthResolver],
 })
 export class ApiUserModule {}

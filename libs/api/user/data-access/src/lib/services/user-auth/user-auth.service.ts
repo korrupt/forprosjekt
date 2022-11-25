@@ -17,7 +17,17 @@ export class ApiUserAuthService {
   constructor(
     @InjectModel(UserAuth.name) private userAuthModel: Model<UserAuthDocument>,
     @InjectModel(User.name) private userModel: Model<UserDocument>,
-  ) {}
+  ) {
+    // this.registerWithEmailPassword({
+    //   user: {
+    //     name: 'Andreas Ipsen',
+    //   },
+    //   auth: {
+    //     email: 'andr940f@gmail.com',
+    //     password: '123',
+    //   },
+    // });
+  }
 
   private async findUserAuthByEmail(email: string): Promise<UserAuth | null> {
     const found = await this.userAuthModel.findOne({ email }).exec();
@@ -28,8 +38,9 @@ export class ApiUserAuthService {
     const { user: _user, auth: _auth } = dto;
 
     // check if email is in use
-    const exists = await this.findUserAuthByEmail(_auth.email);
-    if (!exists) {
+    const found = await this.findUserAuthByEmail(_auth.email);
+
+    if (found) {
       throw new ForbiddenException(`Email is already in use.`);
     }
 
@@ -57,6 +68,7 @@ export class ApiUserAuthService {
       throw new ForbiddenException(`User/Password combination wrong`);
     }
 
-    return { id: userAuth.user._id, email };
+    return userAuth.email;
+    // return { id: userAuth.user._id, email };
   }
 }

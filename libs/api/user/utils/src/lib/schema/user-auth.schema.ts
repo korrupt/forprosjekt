@@ -1,16 +1,23 @@
 import { UserAuthModel } from '@forprosjekt/shared/models';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument, Types } from 'mongoose';
+import { HydratedDocument, Types } from 'mongoose';
 import { User, UserDocument } from './user.schema';
+import { Field } from '@nestjs/graphql';
 
 @Schema()
 export class UserAuth implements UserAuthModel {
+  @Field(() => String)
+  _id: Types.ObjectId | string;
+
+  @Field(() => String)
   @Prop()
   salt: string;
 
+  @Field(() => String)
   @Prop()
   hash: string;
 
+  @Field(() => String)
   @Prop({ unique: true })
   email: string;
 
