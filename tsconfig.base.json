@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@forprosjekt/api/apollo/data-access": ["libs/api/apollo/data-access/src/index.ts"],
+      "@forprosjekt/api/apollo/feature": ["libs/api/apollo/feature/src/index.ts"],
+      "@forprosjekt/api/apollo/utils": ["libs/api/apollo/utils/src/index.ts"],
       "@forprosjekt/api/auth/config": ["libs/api/auth/config/src/index.ts"],
       "@forprosjekt/api/auth/data-access": ["libs/api/auth/data-access/src/index.ts"],
       "@forprosjekt/api/auth/feature": ["libs/api/auth/feature/src/index.ts"],
