@@ -15,7 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@forprosjekt/api-interfaces": ["libs/api-interfaces/src/index.ts"],
       "@forprosjekt/api/core/feature": ["libs/api/core/feature/src/index.ts"],
       "@forprosjekt/api/database/config": [
         "libs/api/database/config/src/index.ts"

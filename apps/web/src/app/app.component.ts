@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Message } from '@forprosjekt/api-interfaces';
 
 @Component({
   selector: 'forprosjekt-root',
@@ -8,6 +7,6 @@ import { Message } from '@forprosjekt/api-interfaces';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  hello$ = this.http.get<Message>('/api/hello');
+  hello$ = this.http.get('/api/hello');
   constructor(private http: HttpClient) {}
 }
