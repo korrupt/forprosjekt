@@ -31,6 +31,8 @@
       "@forprosjekt/api/database/utils": [
         "libs/api/database/utils/src/index.ts"
       ],
+      "@forprosjekt/api/user/feature": ["libs/api/user/feature/src/index.ts"],
+      "@forprosjekt/api/user/utils": ["libs/api/user/utils/src/index.ts"],
       "@forprosjekt/shared/models": ["libs/shared/models/src/index.ts"]
     }
   },
