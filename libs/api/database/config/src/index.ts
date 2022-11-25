@@ -1,1 +1,2 @@
-export * from './lib/api-database-config.module';
+export * from './lib/config.module';
+export * from './lib/config.service';
