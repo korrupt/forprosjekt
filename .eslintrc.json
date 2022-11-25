@@ -76,5 +76,6 @@
       },
       "rules": {}
     }
-  ]
+  ],
+  "extends": ["plugin:prettier/recommended"]
 }
