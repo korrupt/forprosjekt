@@ -115,11 +115,6 @@ describe('ApiUserAuthService', () => {
     it('should throw if not found', async () => {
       jest.mocked(userAuth).findOne.mockResolvedValueOnce(undefined);
       await expect(service.loginWithEmailPassword(body)).rejects.toBeInstanceOf(ForbiddenException);
-      // jest.mocked(userAuth).findOne.mockResolvedValueOnce(_userAuth as UserAuth);
-      // jest.mocked(bcrypt).hash.mock
-
-      // await service.loginWithEmailPassword(body);
-      // expect(user.findOne).toHaveBeenCalled();
     });
 
     it('should throw if wrong password', async () => {
