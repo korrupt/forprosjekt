@@ -1,13 +1,13 @@
+import { User } from '@forprosjekt/api/user/utils';
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { User, UserDocument } from '@forprosjekt/api/user/utils';
-import { Model } from 'mongoose';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class ApiUserService {
-  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
+  constructor(@InjectRepository(User) private user: Repository<User>) {}
 
   public findUsers(): Promise<User[]> {
-    return this.userModel.find().exec();
+    return this.user.find();
   }
 }

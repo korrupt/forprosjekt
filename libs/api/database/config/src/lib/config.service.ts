@@ -13,19 +13,19 @@ export class ApiDatabaseConfigService {
     return this.conf.get('database.PORT');
   }
 
-  get USER(): string {
-    return this.conf.get('database.USER');
+  get USERNAME(): string {
+    return this.conf.get('database.USERNAME');
   }
 
-  get PASS(): string {
+  get PASSWORD(): string {
     return this.conf.get('database.PASSWORD');
   }
 
-  get DB(): string {
-    return this.conf.get('database.DB');
+  get DATABASE(): string {
+    return this.conf.get('database.DATABASE');
   }
 
-  get URI() {
-    return `mongodb://${this.USER}:${this.PASS}@${this.HOST}:${this.PORT}/?authMechanism=DEFAULT&authSource=${this.DB}`;
+  get SYNC(): boolean {
+    return this.conf.get('database.SYNC');
   }
 }

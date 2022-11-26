@@ -1,17 +1,12 @@
 import { Module } from '@nestjs/common';
-import { User, UserAuth, UserAuthSchema, UserSchema } from '@forprosjekt/api/user/utils';
-import { MongooseModule } from '@nestjs/mongoose';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { User, UserAuth } from '@forprosjekt/api/user/utils';
+
 import { ApiUserService, ApiUserAuthService, UserAuthResolver } from '@forprosjekt/api/user/data-access';
 import { ApiAuthModule } from '@forprosjekt/api/auth/feature';
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([
-      { name: User.name, schema: UserSchema },
-      { name: UserAuth.name, schema: UserAuthSchema },
-    ]),
-    ApiAuthModule,
-  ],
+  imports: [TypeOrmModule.forFeature([User, UserAuth]), ApiAuthModule],
   providers: [ApiUserService, ApiUserAuthService, UserAuthResolver],
 })
 export class ApiUserModule {}

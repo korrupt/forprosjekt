@@ -1,23 +1,17 @@
-import {
-  LoginWithEmailPasswordDto,
-  RegisterWithEmailPasswordDto,
-  User,
-  UserAuth,
-  UserAuthDocument,
-  UserDocument,
-} from '@forprosjekt/api/user/utils';
+import { LoginWithEmailPasswordDto, RegisterWithEmailPasswordDto, User, UserAuth } from '@forprosjekt/api/user/utils';
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
 
 import * as bcrypt from 'bcryptjs';
 import { ApiAuthService } from '@forprosjekt/api/auth/data-access';
 
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
 @Injectable()
 export class ApiUserAuthService {
   constructor(
-    @InjectModel(UserAuth.name) private userAuthModel: Model<UserAuthDocument>,
-    @InjectModel(User.name) private userModel: Model<UserDocument>,
+    @InjectRepository(User) private user: Repository<User>,
+    @InjectRepository(UserAuth) private userAuth: Repository<UserAuth>,
     private auth: ApiAuthService,
   ) {
     // this.registerWithEmailPassword({
@@ -32,7 +26,7 @@ export class ApiUserAuthService {
   }
 
   private async findUserAuthByEmail(email: string): Promise<UserAuth | null> {
-    const found = await this.userAuthModel.findOne({ email }).exec();
+    const found = await this.userAuth.findOneBy({ email });
     return found;
   }
 
@@ -46,25 +40,23 @@ export class ApiUserAuthService {
       throw new ForbiddenException(`Email is already in use.`);
     }
 
-    const user = await this.userModel.create(_user);
+    const user = await this.user.save(_user);
 
     const salt = await bcrypt.genSalt();
     const hash = await bcrypt.hash(_auth.password, salt);
 
-    const auth = await this.userAuthModel.create({ email: _auth.email, salt, hash, user });
+    const auth = await this.userAuth.save({ email: _auth.email, salt, hash, user });
 
-    return this.auth.login({ id: user._id, email: auth.email });
+    return this.auth.login({ id: user.id, email: auth.email });
   }
 
   public async loginWithEmailPassword(dto: LoginWithEmailPasswordDto) {
     const { email, password } = dto;
-    const userAuth = await this.userAuthModel.findOne({ email }).populate('user').exec();
+    const userAuth = await this.userAuth.findOne({ where: { email }, relations: ['user'] });
 
     if (!userAuth) {
       throw new NotFoundException(`User/Password combination wrong`);
     }
-
-    console.log(userAuth);
 
     const hash = await bcrypt.hash(password, userAuth.salt);
 
@@ -72,6 +64,6 @@ export class ApiUserAuthService {
       throw new ForbiddenException(`User/Password combination wrong`);
     }
 
-    return this.auth.login({ id: userAuth.user._id, email });
+    return this.auth.login({ id: userAuth.user.id, email });
   }
 }

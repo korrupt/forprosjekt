@@ -9,11 +9,12 @@ import { ApiDatabaseConfigService } from './config.service';
     ConfigModule.forRoot({
       load: [configuration],
       validationSchema: Joi.object({
-        DATABASE_HOST: Joi.string().default('localhost'),
-        DATABASE_PORT: Joi.number().default(27017),
-        DATABASE_USER: Joi.string().required(),
-        DATABASE_PASS: Joi.string().required(),
-        DATABASE_DB: Joi.string().required(),
+        DATABASE_HOST: Joi.string().required(),
+        DATABASE_PORT: Joi.number().required(),
+        DATABASE_USERNAME: Joi.string().required(),
+        DATABASE_PASSWORD: Joi.string().required(),
+        DATABASE_DATABASE: Joi.string().required(),
+        DATABASE_SYNC: Joi.boolean().default(false),
       }),
     }),
   ],
