@@ -1,6 +1,17 @@
 version: '3.8'
 
 services:
+  api:
+    container_name: forprosjekt-api
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    restart: always
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+
   hivemq:
     image: hivemq/hivemq-ce:2022.1
     ports:
