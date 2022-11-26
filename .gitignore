@@ -8,6 +8,10 @@ tmp
 # dependencies
 node_modules
 
+/database/**/*
+!/database/backups
+!/database/data
+
 # persistence
 /database/**/*
 !/database
