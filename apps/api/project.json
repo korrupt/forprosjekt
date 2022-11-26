@@ -20,6 +20,8 @@
           "optimization": true,
           "extractLicenses": true,
           "inspect": false,
+          "generatePackageJson": true,
+          "webpackConfig": "apps/api/webpack.config.prod.js",
           "fileReplacements": [
             {
               "replace": "apps/api/src/environments/environment.ts",
@@ -54,7 +56,17 @@
         "jestConfig": "apps/api/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx run api:build:production",
+          "tsc libs/api/database/cli/src/lib/migrations/*.ts --module commonjs --skipLibCheck --moduleResolution node --outDir dist/apps/api/migrations"
+        ],
+        "parallel": false
+      }
     }
   },
-  "tags": []
+  "tags": ["type:app", "scope:api"]
 }
