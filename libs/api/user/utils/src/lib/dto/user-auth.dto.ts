@@ -18,6 +18,7 @@ export class CreateUserAuthDto implements CreateUserAuthModel {
 
   @IsNotEmpty()
   @IsString()
+  @Field(() => String)
   password: string;
 }
 
@@ -25,12 +26,12 @@ export class CreateUserAuthDto implements CreateUserAuthModel {
 export class RegisterWithEmailPasswordDto implements RegisterWithEmailPasswordModel {
   @IsNotEmpty()
   @Type(() => CreateUserDto)
-  @Field(() => String)
+  @Field(() => CreateUserDto)
   user: CreateUserModel;
 
   @IsNotEmpty()
   @Type(() => CreateUserAuthDto)
-  @Field(() => String)
+  @Field(() => CreateUserAuthDto)
   auth: CreateUserAuthModel;
 }
 
