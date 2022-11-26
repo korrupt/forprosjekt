@@ -5,7 +5,7 @@ import * as bcrypt from 'bcryptjs';
 import { ApiAuthService } from '@forprosjekt/api/auth/data-access';
 
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, EntityManager } from 'typeorm';
 
 @Injectable()
 export class ApiUserAuthService {
@@ -13,21 +13,11 @@ export class ApiUserAuthService {
     @InjectRepository(User) private user: Repository<User>,
     @InjectRepository(UserAuth) private userAuth: Repository<UserAuth>,
     private auth: ApiAuthService,
-  ) {
-    // this.registerWithEmailPassword({
-    //   user: {
-    //     name: 'Andreas Ipsen',
-    //   },
-    //   auth: {
-    //     email: 'andr940f@gmail.com',
-    //     password: '123',
-    //   },
-    // });
-  }
+    private em: EntityManager,
+  ) {}
 
-  private async findUserAuthByEmail(email: string): Promise<UserAuth | null> {
-    const found = await this.userAuth.findOneBy({ email });
-    return found;
+  private async findUserAuthByEmail(email: string): Promise<UserAuth | undefined> {
+    return this.userAuth.findOneBy({ email });
   }
 
   public async registerWithEmailPassword(dto: RegisterWithEmailPasswordDto) {
@@ -40,14 +30,17 @@ export class ApiUserAuthService {
       throw new ForbiddenException(`Email is already in use.`);
     }
 
-    const user = await this.user.save(_user);
+    // run in transaction
+    return this.em.transaction(async (em) => {
+      const user = await em.save(User, _user);
 
-    const salt = await bcrypt.genSalt();
-    const hash = await bcrypt.hash(_auth.password, salt);
+      const salt = await bcrypt.genSalt();
+      const hash = await bcrypt.hash(_auth.password, salt);
 
-    const auth = await this.userAuth.save({ email: _auth.email, salt, hash, user });
+      const auth = await em.save(UserAuth, { email: _auth.email, salt, hash, user });
 
-    return this.auth.login({ userId: user.id, email: auth.email });
+      return this.auth.login({ userId: user.id, email: auth.email });
+    });
   }
 
   public async loginWithEmailPassword(dto: LoginWithEmailPasswordDto) {
@@ -55,7 +48,7 @@ export class ApiUserAuthService {
     const userAuth = await this.userAuth.findOne({ where: { email }, relations: ['user'] });
 
     if (!userAuth) {
-      throw new NotFoundException(`User/Password combination wrong`);
+      throw new ForbiddenException(`User/Password combination wrong`);
     }
 
     const hash = await bcrypt.hash(password, userAuth.salt);
