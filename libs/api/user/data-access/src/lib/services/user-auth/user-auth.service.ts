@@ -11,12 +11,14 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 import * as bcrypt from 'bcryptjs';
+import { ApiAuthService } from '@forprosjekt/api/auth/data-access';
 
 @Injectable()
 export class ApiUserAuthService {
   constructor(
     @InjectModel(UserAuth.name) private userAuthModel: Model<UserAuthDocument>,
     @InjectModel(User.name) private userModel: Model<UserDocument>,
+    private auth: ApiAuthService,
   ) {
     // this.registerWithEmailPassword({
     //   user: {
@@ -51,7 +53,7 @@ export class ApiUserAuthService {
 
     const auth = await this.userAuthModel.create({ email: _auth.email, salt, hash, user });
 
-    return { id: user._id, email: auth.email };
+    return this.auth.login({ id: user._id, email: auth.email });
   }
 
   public async loginWithEmailPassword(dto: LoginWithEmailPasswordDto) {
@@ -62,13 +64,14 @@ export class ApiUserAuthService {
       throw new NotFoundException(`User/Password combination wrong`);
     }
 
+    console.log(userAuth);
+
     const hash = await bcrypt.hash(password, userAuth.salt);
 
     if (hash !== userAuth.hash) {
       throw new ForbiddenException(`User/Password combination wrong`);
     }
 
-    return userAuth.email;
-    // return { id: userAuth.user._id, email };
+    return this.auth.login({ id: userAuth.user._id, email });
   }
 }

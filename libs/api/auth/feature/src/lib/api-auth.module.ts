@@ -3,6 +3,7 @@ import { ApiAuthConfigModule, ApiAuthConfigService } from '@forprosjekt/api/auth
 import { JwtStrategy } from '@forprosjekt/api/auth/utils';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
+import { ApiAuthService } from '@forprosjekt/api/auth/data-access';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { JwtModule } from '@nestjs/jwt';
       }),
     }),
   ],
-  providers: [JwtStrategy],
-  exports: [JwtModule],
+  providers: [JwtStrategy, ApiAuthService],
+  exports: [JwtModule, ApiAuthService],
 })
 export class ApiAuthModule {}
