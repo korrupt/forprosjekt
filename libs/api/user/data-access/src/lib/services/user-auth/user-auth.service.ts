@@ -47,7 +47,7 @@ export class ApiUserAuthService {
 
     const auth = await this.userAuth.save({ email: _auth.email, salt, hash, user });
 
-    return this.auth.login({ id: user.id, email: auth.email });
+    return this.auth.login({ userId: user.id, email: auth.email });
   }
 
   public async loginWithEmailPassword(dto: LoginWithEmailPasswordDto) {
@@ -64,6 +64,6 @@ export class ApiUserAuthService {
       throw new ForbiddenException(`User/Password combination wrong`);
     }
 
-    return this.auth.login({ id: userAuth.user.id, email });
+    return this.auth.login({ userId: userAuth.user.id, email });
   }
 }
