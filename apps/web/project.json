@@ -75,10 +75,7 @@
       },
       "defaultConfiguration": "development",
       "options": {
-        "proxyConfig": "apps/web/proxy.conf.json",
-        "stylePreprocessorOptions": {
-          "includePaths": ["libs/web/shared/assets/src/lib/styles"]
-        }
+        "proxyConfig": "apps/web/proxy.conf.json"
       }
     },
     "extract-i18n": {
