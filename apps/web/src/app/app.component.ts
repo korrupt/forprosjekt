@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'forprosjekt-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  template: '<router-outlet></router-outlet>',
 })
-export class AppComponent {
-  hello$ = this.http.get('/api/hello');
-  constructor(private http: HttpClient) {}
-}
+export class AppComponent {}

@@ -2,12 +2,11 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { NxWelcomeComponent } from './nx-welcome.component';
-import { HttpClientModule } from '@angular/common/http';
+import { WebShellModule } from '@forprosjekt/web/shell/feature';
 
 @NgModule({
-  declarations: [AppComponent, NxWelcomeComponent],
-  imports: [BrowserModule.withServerTransition({ appId: 'serverApp' }), HttpClientModule],
+  declarations: [AppComponent],
+  imports: [BrowserModule.withServerTransition({ appId: 'serverApp' }), WebShellModule],
   providers: [],
   bootstrap: [AppComponent],
 })
