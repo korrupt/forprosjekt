@@ -13,6 +13,7 @@
     ]
   },
   "scripts": {
+    "prepare": "husky install",
     "ng": "nx",
     "start": "nx serve",
     "build": "nx build",
