@@ -1,5 +1,5 @@
 import { filter, map, Observable, Subject, takeUntil } from 'rxjs';
-import { NavbarLayer } from '../interfaces/navbar-layer.interface';
+import { NavbarLayer } from '../../interfaces/navbar-layer.interface';
 
 export class NavbarLayerInstance<T extends NavbarLayer = NavbarLayer> {
   constructor(
