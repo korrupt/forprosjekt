@@ -1,1 +1,2 @@
-export * from './lib/web-layout-feature-shell.module';
+export * from './lib/layout-shell.module';
+export * from './lib/layout-shell.component';

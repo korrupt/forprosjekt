@@ -15,9 +15,20 @@
         "polyfills": "apps/web/src/polyfills.ts",
         "tsConfig": "apps/web/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": ["apps/web/src/favicon.ico", "apps/web/src/assets"],
+        "assets": [
+          "apps/web/src/favicon.ico",
+          "apps/web/src/assets",
+          {
+            "glob": "**/*",
+            "input": "libs/web/shared/assets/src/lib",
+            "output": "assets"
+          }
+        ],
         "styles": ["apps/web/src/styles.scss"],
-        "scripts": []
+        "scripts": [],
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs/web/shared/assets/src/lib/styles"]
+        }
       },
       "configurations": {
         "production": {
@@ -64,7 +75,10 @@
       },
       "defaultConfiguration": "development",
       "options": {
-        "proxyConfig": "apps/web/proxy.conf.json"
+        "proxyConfig": "apps/web/proxy.conf.json",
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs/web/shared/assets/src/lib/styles"]
+        }
       }
     },
     "extract-i18n": {
@@ -153,5 +167,6 @@
       }
     }
   },
-  "tags": ["type:app", "scope:web"]
+  "tags": ["type:app", "scope:web"],
+  "implicitDependencies": ["web-shared-assets"]
 }
