@@ -1,1 +1,1 @@
-export * from './lib/web-shared-data-access.module';
+export * from './lib/services';
