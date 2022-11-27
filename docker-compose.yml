@@ -12,6 +12,15 @@ services:
     env_file:
       - .env
 
+  web:
+    container_name: forprosjekt-web
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    restart: always
+    ports:
+      - 4000:4000
+
   hivemq:
     image: hivemq/hivemq-ce:2022.1
     ports:
