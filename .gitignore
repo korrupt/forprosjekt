@@ -13,8 +13,7 @@ node_modules
 !/database/data
 
 # persistence
-/database/**/*
-!/database
+/database
 !/database/backups
 !/database/data
 
