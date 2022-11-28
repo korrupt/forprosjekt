@@ -7,6 +7,10 @@ export const WEB_SHELL_ROUTES: Routes = [
     component: LayoutShellComponent,
     children: [
       {
+        path: 'auth',
+        loadChildren: async () => (await import('@forprosjekt/web/auth/feature/shell')).WebAuthShellModule,
+      },
+      {
         path: '**',
         loadChildren: async () => (await import('@forprosjekt/web/not-found/feature')).NotFoundModule,
       },
