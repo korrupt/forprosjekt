@@ -1,19 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { NavbarService } from '@forprosjekt/web/shared/data-access';
 
 @Component({
   selector: 'forprosjekt-layout-navbar',
   templateUrl: './layout-navbar.component.html',
   styleUrls: ['./layout-navbar.component.scss'],
 })
-export class LayoutNavbarComponent implements OnInit {
-  icon?: string = 'home';
+export class LayoutNavbarComponent {
+  constructor(private navbar: NavbarService) {}
 
-  ngOnInit(): void {
-    setTimeout(() => {
-      this.icon = 'clear';
-    }, 500);
-    setTimeout(() => {
-      this.icon = undefined;
-    }, 1000);
-  }
+  button$ = this.navbar.latestProp$('button');
+  title$ = this.navbar.latestProp$('title');
 }
