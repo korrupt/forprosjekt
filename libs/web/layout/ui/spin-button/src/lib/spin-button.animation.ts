@@ -1,7 +1,6 @@
 import { trigger, transition, style, animate, query, group } from '@angular/animations';
 
 export const SPIN_BUTTON_ANIMATION = trigger('SpinButton', [
-  // transition(':enter', []),
   transition(':enter', [query('.current', [style({ opacity: 0 }), animate(`90ms ease-out`, style({ opacity: 1 }))])]),
   transition(':leave', [query('.current', [style({ opacity: 1 }), animate(`90ms ease-out`, style({ opacity: 0 }))])]),
   transition('* => *', [
