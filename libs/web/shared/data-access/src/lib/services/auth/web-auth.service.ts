@@ -1,8 +1,8 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { JwtPayload } from '@forprosjekt/shared/models';
-import { Apollo } from 'apollo-angular';
 import { BehaviorSubject, filter, map } from 'rxjs';
+import jwtDecode from 'jwt-decode';
 
 export interface WebAuthState {
   user?: JwtPayload;
@@ -16,14 +16,19 @@ const WEB_AUTH_LOCALSTORAGE_KEY = 'forprosjekt.web-auth';
   providedIn: 'root',
 })
 export class WebAuthService {
-  constructor(private apollo: Apollo, @Inject(PLATFORM_ID) private id: any) {}
+  constructor(@Inject(PLATFORM_ID) private id: any) {}
 
   private state = new BehaviorSubject<WebAuthState>({ loginAttempted: false });
-  public state$ = this.state.asObservable();
+  public readonly state$ = this.state.asObservable();
 
-  public loggedIn$ = this.state$.pipe(
+  public readonly loggedIn$ = this.state$.pipe(
     filter(({ loginAttempted }) => loginAttempted),
     map(({ user }) => !!user),
+  );
+
+  public readonly user$ = this.state$.pipe(
+    filter(({ loginAttempted }) => loginAttempted),
+    map(({ user }) => user),
   );
 
   // fix SSR
@@ -53,9 +58,15 @@ export class WebAuthService {
   public init(): void {
     const access_token = this.access_token;
     if (access_token) {
-      this.state.next({ ...this.state.value, loginAttempted: true, access_token });
+      this.login(access_token);
     } else {
       this.state.next({ loginAttempted: true });
     }
+  }
+
+  public login(access_token: string) {
+    this.setToken(access_token);
+    const user: JwtPayload = jwtDecode(access_token);
+    this.state.next({ access_token, user, loginAttempted: true });
   }
 }
