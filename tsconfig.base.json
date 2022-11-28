@@ -38,6 +38,7 @@
       "@forprosjekt/web/layout/feature/shell": ["libs/web/layout/feature/shell/src/index.ts"],
       "@forprosjekt/web/layout/ui/fade-text": ["libs/web/layout/ui/fade-text/src/index.ts"],
       "@forprosjekt/web/layout/ui/spin-button": ["libs/web/layout/ui/spin-button/src/index.ts"],
+      "@forprosjekt/web/not-found/feature": ["libs/web/not-found/feature/src/index.ts"],
       "@forprosjekt/web/shared/assets": ["libs/web/shared/assets/src/index.ts"],
       "@forprosjekt/web/shared/data-access": ["libs/web/shared/data-access/src/index.ts"],
       "@forprosjekt/web/shared/utils": ["libs/web/shared/utils/src/index.ts"],

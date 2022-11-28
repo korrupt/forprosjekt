@@ -1,4 +1,9 @@
-<nav class="forprosjekt-layout-navbar">
+<nav class="forprosjekt-layout-navbar"
+  [style.backgroundColor]="backgroundColor$ | async"
+  [style.color]="color$ | async"
+  [class.border]="border$ | async"
+  [class.elevated]="elevation$ | async"
+>
   <forprosjekt-spin-button *ngIf="(button$ | async) as button" [icon]="button.value"></forprosjekt-spin-button>
-  <forprosjekt-fade-text [text]="title"></forprosjekt-fade-text>
+  <forprosjekt-fade-text [text]="(title$ | async)?.value"></forprosjekt-fade-text>
 </nav>

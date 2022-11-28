@@ -5,6 +5,11 @@ export const WEB_SHELL_ROUTES: Routes = [
   {
     path: '',
     component: LayoutShellComponent,
-    children: [],
+    children: [
+      {
+        path: '**',
+        loadChildren: async () => (await import('@forprosjekt/web/not-found/feature')).NotFoundModule,
+      },
+    ],
   },
 ];
