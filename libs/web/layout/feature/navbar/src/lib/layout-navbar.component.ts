@@ -1,7 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { NavbarService } from '@forprosjekt/web/shared/data-access';
-import { combineLatest, distinctUntilChanged, fromEvent, map, of, startWith, switchMap } from 'rxjs';
+import { distinctUntilChanged, fromEvent, map, of, startWith, switchMap } from 'rxjs';
 
 @Component({
   selector: 'forprosjekt-layout-navbar',
@@ -16,7 +16,7 @@ export class LayoutNavbarComponent {
 
   private theme$ = this.navbar.latestProp$('theme');
 
-  backgroundColor$ = this.theme$.pipe(map((prop) => (prop?.value ? prop.value.background : 'transparent')));
+  backgroundColor$ = this.theme$.pipe(map((prop) => (prop?.value ? prop.value.background : '#FFF')));
   color$ = this.theme$.pipe(map((prop) => (prop?.value ? prop.value.color : '#000')));
   elevation$ = of(isPlatformBrowser(this.id)).pipe(
     switchMap((isBrowser) =>
@@ -32,10 +32,7 @@ export class LayoutNavbarComponent {
     distinctUntilChanged(),
   );
 
-  border$ = combineLatest([this.theme$, this.elevation$]).pipe(
-    map(([prop, elevation]) => {
-      if (prop?.value?.background === 'transparent') return false;
-      return !elevation;
-    }),
-  );
+  emitButton(id: number) {
+    this.navbar._buttonClicked(id);
+  }
 }

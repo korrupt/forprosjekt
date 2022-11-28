@@ -1,6 +1,7 @@
 <div class="forprosjekt-layout-shell">
-  <forprosjekt-layout-navbar></forprosjekt-layout-navbar>
-  <div class="content" [style.paddingTop.px]="paddingTop$ | async">
-    <router-outlet></router-outlet>
-  </div>
+  <forprosjekt-layout-navdrawer>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </forprosjekt-layout-navdrawer>
 </div>

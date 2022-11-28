@@ -1,1 +1,1 @@
-export * from './lib/web-layout-feature-navdrawer.module';
+export * from './lib/layout-navdrawer.module';

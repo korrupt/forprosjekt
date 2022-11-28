@@ -1,8 +1,4 @@
-@use '@angular/material' as mat;
-
 .forprosjekt-layout-navbar {
-  position: fixed;
-
   height: 56px;
   width: 100%;
   top: 0;
@@ -21,19 +17,4 @@
   forprosjekt-fade-text {
     flex: 1 1 auto;
   }
-
-
-  @include mat.elevation-transition();
-  &.elevated {
-    @include mat.elevation(1);
-  }
-
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  border-bottom-color: transparent;
-
-  &.border {
-    border-bottom-color: rgba(0, 0, 0, 0.12);
-  }
-
 }

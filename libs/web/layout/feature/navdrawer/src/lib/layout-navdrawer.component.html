@@ -1,0 +1,32 @@
+<mat-sidenav-container class="forprosjekt-layout-navdrawer"
+  [class.is-mobile]="isMobile"
+  (backdropClick)="handleBackdropClick()"
+>
+
+<mat-sidenav
+    [opened]="opened"
+    [mode]="isMobile ? 'over' : 'side'"
+    [fixedInViewport]="isMobile"
+    >
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, perspiciatis sed? Voluptatum autem deleniti totam vero impedit dolore reiciendis veniam aspernatur amet corporis fuga nisi dolor, ut repellat nihil ducimus?</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, perspiciatis sed? Voluptatum autem deleniti totam vero impedit dolore reiciendis veniam aspernatur amet corporis fuga nisi dolor, ut repellat nihil ducimus?</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, perspiciatis sed? Voluptatum autem deleniti totam vero impedit dolore reiciendis veniam aspernatur amet corporis fuga nisi dolor, ut repellat nihil ducimus?</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, perspiciatis sed? Voluptatum autem deleniti totam vero impedit dolore reiciendis veniam aspernatur amet corporis fuga nisi dolor, ut repellat nihil ducimus?</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, perspiciatis sed? Voluptatum autem deleniti totam vero impedit dolore reiciendis veniam aspernatur amet corporis fuga nisi dolor, ut repellat nihil ducimus?</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, perspiciatis sed? Voluptatum autem deleniti totam vero impedit dolore reiciendis veniam aspernatur amet corporis fuga nisi dolor, ut repellat nihil ducimus?</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, perspiciatis sed? Voluptatum autem deleniti totam vero impedit dolore reiciendis veniam aspernatur amet corporis fuga nisi dolor, ut repellat nihil ducimus?</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, perspiciatis sed? Voluptatum autem deleniti totam vero impedit dolore reiciendis veniam aspernatur amet corporis fuga nisi dolor, ut repellat nihil ducimus?</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, perspiciatis sed? Voluptatum autem deleniti totam vero impedit dolore reiciendis veniam aspernatur amet corporis fuga nisi dolor, ut repellat nihil ducimus?</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, perspiciatis sed? Voluptatum autem deleniti totam vero impedit dolore reiciendis veniam aspernatur amet corporis fuga nisi dolor, ut repellat nihil ducimus?</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, perspiciatis sed? Voluptatum autem deleniti totam vero impedit dolore reiciendis veniam aspernatur amet corporis fuga nisi dolor, ut repellat nihil ducimus?</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, perspiciatis sed? Voluptatum autem deleniti totam vero impedit dolore reiciendis veniam aspernatur amet corporis fuga nisi dolor, ut repellat nihil ducimus?</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, perspiciatis sed? Voluptatum autem deleniti totam vero impedit dolore reiciendis veniam aspernatur amet corporis fuga nisi dolor, ut repellat nihil ducimus?</p>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <forprosjekt-layout-navbar></forprosjekt-layout-navbar>
+    <div class="content">
+      <ng-content></ng-content>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
