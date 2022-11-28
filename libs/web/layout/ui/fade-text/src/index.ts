@@ -1,1 +1,1 @@
-export * from './lib/web-layout-ui-fade-text.module';
+export * from './lib/fade-text.module';
