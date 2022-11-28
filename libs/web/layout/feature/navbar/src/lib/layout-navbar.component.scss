@@ -1,0 +1,20 @@
+.forprosjekt-layout-navbar {
+  height: 56px;
+  width: 100%;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 8px;
+  box-sizing: border-box;
+
+  forprosjekt-spin-button {
+    margin-right: 24px;
+  }
+
+  forprosjekt-fade-text {
+    flex: 1 1 auto;
+  }
+}

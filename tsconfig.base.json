@@ -31,7 +31,18 @@
       "@forprosjekt/api/user/data-access": ["libs/api/user/data-access/src/index.ts"],
       "@forprosjekt/api/user/feature": ["libs/api/user/feature/src/index.ts"],
       "@forprosjekt/api/user/utils": ["libs/api/user/utils/src/index.ts"],
-      "@forprosjekt/shared/models": ["libs/shared/models/src/index.ts"]
+      "@forprosjekt/shared/models": ["libs/shared/models/src/index.ts"],
+      "@forprosjekt/web/layout/feature/footer": ["libs/web/layout/feature/footer/src/index.ts"],
+      "@forprosjekt/web/layout/feature/navbar": ["libs/web/layout/feature/navbar/src/index.ts"],
+      "@forprosjekt/web/layout/feature/navdrawer": ["libs/web/layout/feature/navdrawer/src/index.ts"],
+      "@forprosjekt/web/layout/feature/shell": ["libs/web/layout/feature/shell/src/index.ts"],
+      "@forprosjekt/web/layout/ui/fade-text": ["libs/web/layout/ui/fade-text/src/index.ts"],
+      "@forprosjekt/web/layout/ui/spin-button": ["libs/web/layout/ui/spin-button/src/index.ts"],
+      "@forprosjekt/web/not-found/feature": ["libs/web/not-found/feature/src/index.ts"],
+      "@forprosjekt/web/shared/assets": ["libs/web/shared/assets/src/index.ts"],
+      "@forprosjekt/web/shared/data-access": ["libs/web/shared/data-access/src/index.ts"],
+      "@forprosjekt/web/shared/utils": ["libs/web/shared/utils/src/index.ts"],
+      "@forprosjekt/web/shell/feature": ["libs/web/shell/feature/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
