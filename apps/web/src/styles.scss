@@ -58,5 +58,7 @@ body {
   --warn: #{map-get($web-theme, 'warn', 500)};
   --warn-contrast: #{map-get($web-theme, 'warn', 'contrast', 500)};
 
+  --secondary-text: #{map-get($web-theme, 'foreground', 'secondary-text')};
+
   --background-card: #{map-get($web-theme, 'background', 'card')};
 }

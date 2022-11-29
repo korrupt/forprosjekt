@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { map } from 'rxjs';
 
-import { NavbarService } from '@forprosjekt/web/shared/data-access';
+import { NavbarService, WebAuthService } from '@forprosjekt/web/shared/data-access';
 import { NavbarLayerInstance } from '@forprosjekt/web/shared/utils';
 
 @Component({
@@ -11,7 +11,9 @@ import { NavbarLayerInstance } from '@forprosjekt/web/shared/utils';
   styleUrls: ['./layout-navdrawer.component.scss'],
 })
 export class LayoutNavdrawerComponent implements OnInit {
-  constructor(private bpo: BreakpointObserver, private navbar: NavbarService) {}
+  constructor(private bpo: BreakpointObserver, private navbar: NavbarService, private webAuth: WebAuthService) {}
+
+  readonly user$ = this.webAuth.user$;
 
   closedLayer = this.navbar.registerNavbarLayer({
     button: 'menu',
