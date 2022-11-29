@@ -2,7 +2,7 @@ import { ExtractJwt, Strategy, StrategyOptions } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { ApiAuthConfigService } from '@forprosjekt/api/auth/config';
-import { JwtPayload } from '@forprosjekt/shared/models';
+import { AuthUser } from '../classes';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
@@ -14,7 +14,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     } as StrategyOptions);
   }
 
-  async validate(payload: JwtPayload) {
-    return payload;
+  async validate(auth: AuthUser) {
+    return auth;
   }
 }

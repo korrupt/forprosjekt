@@ -1,9 +1,11 @@
-import { AccessToken } from '@forprosjekt/api/auth/utils';
+import { AccessToken, ApolloGuard } from '@forprosjekt/api/auth/utils';
 import { LoginWithEmailPasswordDto, RegisterWithEmailPasswordDto } from '@forprosjekt/api/user/utils';
+import { UseGuards } from '@nestjs/common';
 import { Resolver, Mutation, Args } from '@nestjs/graphql';
 import { ApiUserAuthService } from '../services';
 
 @Resolver()
+@UseGuards(ApolloGuard)
 export class UserAuthResolver {
   constructor(private userAuth: ApiUserAuthService) {}
 
