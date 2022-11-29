@@ -11,7 +11,7 @@ export class ApiUserService {
     return this.user.find();
   }
 
-  public async findUser(id: string, throws: false): Promise<User | undefined>;
+  public async findUser(id: string, throws?: boolean): Promise<User | undefined>;
   public async findUser(id: string, throws = true): Promise<User> {
     const found = await this.user.findOneBy({ id });
 

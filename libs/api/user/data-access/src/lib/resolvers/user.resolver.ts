@@ -1,7 +1,7 @@
 import { ApolloGuard, AuthUser, GQLAuth } from '@forprosjekt/api/auth/utils';
 import { User } from '@forprosjekt/api/user/utils';
 import { UseGuards } from '@nestjs/common';
-import { Query, Resolver } from '@nestjs/graphql';
+import { Args, ID, Query, Resolver } from '@nestjs/graphql';
 import { ApiUserService } from '../services';
 
 @Resolver()
@@ -14,5 +14,8 @@ export class UserResolver {
     return this.user.findUsers();
   }
 
-  // @Query(() => User)
+  @Query(() => User, { name: 'user' })
+  public findUser(@GQLAuth() auth: AuthUser, @Args('userId', { type: () => ID }) userId: string) {
+    return this.user.findUser(userId, true);
+  }
 }
