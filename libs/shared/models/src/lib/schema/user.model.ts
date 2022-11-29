@@ -5,3 +5,7 @@ export interface UserModel {
 export interface CreateUserModel {
   name: string;
 }
+
+export interface UpdateUserModel {
+  name?: string;
+}
