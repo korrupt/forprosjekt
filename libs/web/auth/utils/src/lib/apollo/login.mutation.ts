@@ -11,9 +11,9 @@ export interface LoginMutationVariables {
   body: LoginWithEmailPasswordModel;
 }
 
-export const LoginMutation = gql`
+export const LoginMutation = gql<LoginMutationResult, LoginMutationVariables>`
   mutation LoginWithEmailPassword($body: LoginWithEmailPasswordDto!) {
-    body: loginWithEmailPassword(body: $body) {
+    user: loginWithEmailPassword(body: $body) {
       access_token
     }
   }

@@ -1,0 +1,23 @@
+<div class="forprosjekt-auth-login">
+  <div class="error" *ngIf="error">
+    <h3>Error:</h3>
+    <p>{{ error }}</p>
+  </div>
+  <form (ngSubmit)="submit($event)" [formGroup]="formGroup" *ngIf="!loading; else loadingTemplate">
+    <mat-form-field>
+      <mat-label>E-mail</mat-label>
+      <input type="text" matInput formControlName="email">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input type="text" matInput formControlName="password">
+    </mat-form-field>
+    <button [disabled]="!valid" mat-raised-button color="primary">Login</button>
+  </form>
+</div>
+
+<ng-template #loadingTemplate>
+  <div class="loading">
+    <mat-spinner diameter="64"></mat-spinner>
+  </div>
+</ng-template>

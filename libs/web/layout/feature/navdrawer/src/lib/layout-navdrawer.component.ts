@@ -15,6 +15,10 @@ export class LayoutNavdrawerComponent implements OnInit {
 
   closedLayer = this.navbar.registerNavbarLayer({
     button: 'menu',
+    theme: {
+      background: 'var(--primary)',
+      color: 'var(--primary-contrast)',
+    },
   });
   closedButtonSub = this.closedLayer.buttonClicked$.subscribe(() => {
     this.opened = true;

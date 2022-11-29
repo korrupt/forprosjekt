@@ -1,0 +1,35 @@
+@use 'layout/mixins' as mixins;
+
+.forprosjekt-auth-login {
+  box-sizing: border-box;
+  padding: 32px 16px;
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .loading {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  .error {
+    @include mixins.round(4px);
+    background-color: var(--warn);
+    color: var(--warn-contrast);
+    padding: 8px;
+    margin: 0 0 4px;
+    h3 {
+      margin: 0;
+    }
+    p {
+      margin: 4px 0;
+    }
+  }
+}
