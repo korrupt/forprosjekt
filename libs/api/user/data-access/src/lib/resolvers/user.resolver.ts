@@ -1,7 +1,7 @@
 import { ApolloGuard, AuthUser, GQLAuth } from '@forprosjekt/api/auth/utils';
-import { User } from '@forprosjekt/api/user/utils';
+import { UpdateUserDto, User } from '@forprosjekt/api/user/utils';
 import { ForbiddenException, UseGuards } from '@nestjs/common';
-import { Args, ID, Query, Resolver } from '@nestjs/graphql';
+import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { ApiUserAclAdapter } from '../adapters';
 
 @Resolver()
@@ -23,5 +23,14 @@ export class ApiUserResolver {
   public findLoggedInUser(@GQLAuth() auth: AuthUser) {
     if (!auth.id) throw new ForbiddenException(`User not logged in.`);
     return this.user.findUser(auth, auth.id, true);
+  }
+
+  @Mutation(() => User)
+  public updateUser(
+    @GQLAuth() auth: AuthUser,
+    @Args('userId', { type: () => ID }) userId: string,
+    @Args('body') body: UpdateUserDto,
+  ) {
+    return this.user.updateUser(auth, userId, body);
   }
 }

@@ -1,4 +1,4 @@
-import { User } from '@forprosjekt/api/user/utils';
+import { UpdateUserDto, User } from '@forprosjekt/api/user/utils';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -20,5 +20,10 @@ export class ApiUserService {
     }
 
     return found;
+  }
+
+  public async updateUser(id: string, body: UpdateUserDto) {
+    const user = await this.findUser(id, true);
+    return this.user.save({ ...user, ...body });
   }
 }

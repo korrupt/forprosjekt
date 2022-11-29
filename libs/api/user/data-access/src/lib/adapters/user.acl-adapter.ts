@@ -1,4 +1,5 @@
 import { AuthUser } from '@forprosjekt/api/auth/utils';
+import { UpdateUserDto } from '@forprosjekt/api/user/utils';
 import { AccessResource } from '@forprosjekt/shared/models';
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { ApiUserService } from '../services';
@@ -21,5 +22,13 @@ export class ApiUserAclAdapter {
 
     const result = await this.user.findUser(id, throws);
     return permission.filter(result);
+  }
+
+  public async updateUser(auth: AuthUser, id: string, body: UpdateUserDto) {
+    const permission = auth.update({ ownerId: id }, AccessResource.USER);
+    if (!permission.granted) throw new ForbiddenException();
+
+    const filteredDto = permission.filter(body);
+    return this.user.updateUser(id, filteredDto);
   }
 }
