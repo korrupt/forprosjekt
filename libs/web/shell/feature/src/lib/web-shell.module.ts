@@ -9,7 +9,7 @@ import { HttpLink } from 'apollo-angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { ApolloLink, InMemoryCache } from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context';
-import { WebAuthService } from '@forprosjekt/web/shared/data-access';
+import { IsLoggedInGuard, WebAuthService } from '@forprosjekt/web/shared/data-access';
 import { lastValueFrom, take } from 'rxjs';
 
 @NgModule({
@@ -17,6 +17,7 @@ import { lastValueFrom, take } from 'rxjs';
   exports: [RouterModule],
   providers: [
     WebAuthService,
+    IsLoggedInGuard,
     {
       provide: APP_INITIALIZER,
       useFactory: (auth: WebAuthService) => () => {
