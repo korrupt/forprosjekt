@@ -1,6 +1,20 @@
 @use 'layout/mixins' as mixins;
 @use '@angular/material' as mat;
 
+.welcome {
+  position: relative;
+  padding: 24px 16px;
+  h3 {
+    font-weight: 400;
+    margin: 0;
+    font-size: 1rem;
+  }
+  h4 {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+}
+
 .forprosjekt-account-dashboard {
   @include mixins.grid();
   .item {
