@@ -1,0 +1,19 @@
+@use 'layout/mixins' as mixins;
+@use '@angular/material' as mat;
+
+.forprosjekt-account-dashboard {
+  @include mixins.grid();
+  .item {
+    padding: 8px 16px 24px;
+    grid-column: span 4;
+    background: var(--background-card);
+    @include mixins.round(4px);
+
+    @include mixins.screen('tablet-md') {
+    }
+
+    h3 {
+      margin: 0;
+    }
+  }
+}

@@ -1,1 +1,1 @@
-export * from './lib/web-account-feature-dashboard.module';
+export * from './lib/account-dashboard.module';
