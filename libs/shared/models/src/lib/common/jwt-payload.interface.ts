@@ -1,4 +1,7 @@
+import { AccessRole } from './access-role.enum';
+
 export interface JwtPayload {
-  userId: string;
+  id: string;
   email: string;
+  roles: AccessRole[];
 }

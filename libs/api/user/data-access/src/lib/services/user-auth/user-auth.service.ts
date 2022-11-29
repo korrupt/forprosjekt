@@ -1,5 +1,5 @@
 import { LoginWithEmailPasswordDto, RegisterWithEmailPasswordDto, User, UserAuth } from '@forprosjekt/api/user/utils';
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 
 import * as bcrypt from 'bcryptjs';
 import { ApiAuthService } from '@forprosjekt/api/auth/data-access';
@@ -39,7 +39,7 @@ export class ApiUserAuthService {
 
       const auth = await em.save(UserAuth, { email: _auth.email, salt, hash, user });
 
-      return this.auth.login({ userId: user.id, email: auth.email });
+      return this.auth.login({ id: user.id, email: auth.email, roles: user.roles });
     });
   }
 
@@ -57,6 +57,6 @@ export class ApiUserAuthService {
       throw new ForbiddenException(`User/Password combination wrong`);
     }
 
-    return this.auth.login({ userId: userAuth.user.id, email });
+    return this.auth.login({ id: userAuth.user.id, email, roles: userAuth.user.roles });
   }
 }
