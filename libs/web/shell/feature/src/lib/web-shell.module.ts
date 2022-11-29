@@ -7,8 +7,10 @@ import { WebLayoutShellModule } from '@forprosjekt/web/layout/feature/shell';
 import { ApolloModule, APOLLO_OPTIONS } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 import { HttpClientModule } from '@angular/common/http';
-import { InMemoryCache } from '@apollo/client/core';
+import { ApolloLink, InMemoryCache } from '@apollo/client/core';
+import { setContext } from '@apollo/client/link/context';
 import { WebAuthService } from '@forprosjekt/web/shared/data-access';
+import { lastValueFrom, take } from 'rxjs';
 
 @NgModule({
   imports: [CommonModule, RouterModule.forRoot(WEB_SHELL_ROUTES), WebLayoutShellModule, ApolloModule, HttpClientModule],
@@ -25,15 +27,30 @@ import { WebAuthService } from '@forprosjekt/web/shared/data-access';
     },
     {
       provide: APOLLO_OPTIONS,
-      useFactory: (link: HttpLink) => {
+      useFactory: (httpLink: HttpLink, webAuth: WebAuthService) => {
+        const auth = setContext(async () => {
+          const token = await lastValueFrom(webAuth.token$.pipe(take(1)));
+
+          if (!token) {
+            return {};
+          } else {
+            return {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            };
+          }
+        });
+
+        const link = ApolloLink.from([auth, httpLink.create({ uri: '/graphql' })]);
+        const cache = new InMemoryCache();
+
         return {
-          cache: new InMemoryCache(),
-          link: link.create({
-            uri: '/graphql',
-          }),
+          link,
+          cache,
         };
       },
-      deps: [HttpLink],
+      deps: [HttpLink, WebAuthService],
     },
   ],
 })
