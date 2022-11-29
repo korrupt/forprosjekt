@@ -1,14 +1,11 @@
+import { CoreEntity } from '@forprosjekt/api/database/utils';
 import { UserModel } from '@forprosjekt/shared/models';
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, Column } from 'typeorm';
 
 @ObjectType()
 @Entity()
-export class User implements UserModel {
-  @Field(() => String)
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
+export class User extends CoreEntity implements UserModel {
   @Field(() => String)
   @Column()
   name: string;

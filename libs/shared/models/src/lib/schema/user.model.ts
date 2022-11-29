@@ -1,4 +1,6 @@
-export interface UserModel {
+import { CoreEntityModel } from './core-entity.model';
+
+export interface UserModel extends CoreEntityModel {
   name: string;
 }
 
