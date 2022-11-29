@@ -13,4 +13,6 @@ export class UserResolver {
   public findUsers(@GQLAuth() auth: AuthUser) {
     return this.user.findUsers();
   }
+
+  // @Query(() => User)
 }
