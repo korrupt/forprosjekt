@@ -2,15 +2,9 @@
   "name": "forprosjekt",
   "version": "0.0.0",
   "license": "MIT",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "*.{js,json,css,scss,md,ts,html,graphql}": [
-      "yarn format --uncommitted",
-      "nx format:write"
+      "yarn format --uncommitted"
     ]
   },
   "scripts": {
