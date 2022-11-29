@@ -27,6 +27,7 @@ describe('ApiUserAuthService', () => {
           provide: EntityManager,
           useValue: {
             transaction: jest.fn(),
+            query: jest.fn(),
           },
         },
         {
@@ -86,6 +87,7 @@ describe('ApiUserAuthService', () => {
     it('should return transaction result', async () => {
       const value = 'test';
       jest.mocked(em).transaction.mockResolvedValueOnce(value);
+      jest.spyOn(service as any, 'generateUserId').mockResolvedValueOnce({ id: 'id' });
 
       const result = await service.registerWithEmailPassword(body);
 
@@ -96,6 +98,7 @@ describe('ApiUserAuthService', () => {
     it('should create user and auth in transaction', async () => {
       const mockEm = { save: jest.fn((v) => v) };
       jest.mocked(em as any).transaction.mockImplementationOnce((cb) => cb(mockEm));
+      jest.spyOn(service as any, 'generateUserId').mockResolvedValueOnce({ id: 'id' });
 
       await service.registerWithEmailPassword(body);
 

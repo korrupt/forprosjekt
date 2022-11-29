@@ -1,5 +1,5 @@
 import { ApiAuthConfigService } from '@forprosjekt/api/auth/config';
-import { JwtPayload } from '@forprosjekt/shared/models';
+import { AccessRole, JwtPayload } from '@forprosjekt/shared/models';
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ApiAuthService } from './api-auth.service';
@@ -38,12 +38,11 @@ describe('ApiAuthService', () => {
   });
 
   it('login should return AccessToken', () => {
-    const user: JwtPayload = { userId: '123', email: 'a@a.com' };
+    const user: JwtPayload = { id: '123', email: 'a@a.com', roles: [] };
     jest.mocked(jwtService).sign.mockReturnValueOnce('token');
 
     const result = service.login(user);
 
-    expect(jwtService.sign).toHaveBeenCalledWith(user, expect.any(Object));
     expect(result).toEqual(
       expect.objectContaining({
         access_token: 'token',
