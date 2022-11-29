@@ -11,6 +11,10 @@ export const WEB_SHELL_ROUTES: Routes = [
         loadChildren: async () => (await import('@forprosjekt/web/auth/feature/shell')).WebAuthShellModule,
       },
       {
+        path: 'account',
+        loadChildren: async () => (await import('@forprosjekt/web/account/feature/shell')).WebAccountShellModule,
+      },
+      {
         path: '**',
         loadChildren: async () => (await import('@forprosjekt/web/not-found/feature')).NotFoundModule,
       },
