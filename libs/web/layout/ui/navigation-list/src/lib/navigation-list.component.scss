@@ -1,0 +1,55 @@
+@use 'layout/mixins' as mixins;
+
+.forprosjekt-navigation-list {
+  // margin: 0;
+  // padding: 0;
+
+  a {
+    position: relative;
+    z-index: 1;
+    .mat-icon,
+    h3 {
+      position: relative;
+      z-index: 2;
+      transition: color 150ms ease;
+    }
+    .overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      user-select: none;
+      box-sizing: border-box;
+      padding: 4px 8px;
+      opacity: 0;
+      transition: opacity 150ms ease;
+      div {
+        user-select: none;
+        width: 100%;
+        height: 100%;
+        background: var(--primary);
+        @include mixins.round(8px);
+      }
+    }
+
+    &.active {
+      .mat-icon,
+      h3 {
+        color: var(--primary-contrast);
+      }
+      .overlay {
+        opacity: 1;
+      }
+    }
+  }
+  // a {
+  //   padding: 16px 8px;
+  //   display: block;
+  //   div {
+  //     display: flex;
+  //     align-items: center;
+  //     gap: 24px;
+  //   }
+  // }
+}
