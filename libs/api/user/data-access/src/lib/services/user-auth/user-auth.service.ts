@@ -39,7 +39,7 @@ export class ApiUserAuthService {
 
     // run in transaction
     return this.em.transaction(async (em) => {
-      const user = await em.save(User, { ..._user, ownerId, roles: [] });
+      const user = await em.save(User, { ..._user, ownerId });
 
       const salt = await bcrypt.genSalt();
       const hash = await bcrypt.hash(_auth.password, salt);
