@@ -11,6 +11,6 @@ export class User extends CoreEntity implements UserModel {
   name: string;
 
   @Field(() => [String])
-  @Column({ type: 'enum', enum: AccessRole, enumName: 'AccessRole', default: [] })
+  @Column({ type: 'enum', enum: AccessRole, array: true, enumName: 'AccessRole', default: [] })
   roles: AccessRole[];
 }
