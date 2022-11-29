@@ -31,6 +31,7 @@
       "@forprosjekt/api/user/data-access": ["libs/api/user/data-access/src/index.ts"],
       "@forprosjekt/api/user/feature": ["libs/api/user/feature/src/index.ts"],
       "@forprosjekt/api/user/utils": ["libs/api/user/utils/src/index.ts"],
+      "@forprosjekt/shared/acl": ["libs/shared/acl/src/index.ts"],
       "@forprosjekt/shared/models": ["libs/shared/models/src/index.ts"],
       "@forprosjekt/web/auth/feature/login": ["libs/web/auth/feature/login/src/index.ts"],
       "@forprosjekt/web/auth/feature/shell": ["libs/web/auth/feature/shell/src/index.ts"],
