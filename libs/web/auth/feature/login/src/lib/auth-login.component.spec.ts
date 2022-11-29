@@ -7,6 +7,10 @@ import { map, of, timer } from 'rxjs';
 import { LoginMutationResult } from '@forprosjekt/web/auth/utils';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
+const layerStub = {
+  release: jest.fn(),
+};
+
 describe('AuthLoginComponent', () => {
   let component: AuthLoginComponent;
   let fixture: ComponentFixture<AuthLoginComponent>;
@@ -21,7 +25,7 @@ describe('AuthLoginComponent', () => {
         {
           provide: NavbarService,
           useValue: {
-            registerNavbarLayer: jest.fn(),
+            registerNavbarLayer: jest.fn(() => layerStub),
           },
         },
         {
