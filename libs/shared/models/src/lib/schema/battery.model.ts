@@ -6,4 +6,14 @@ export interface BatteryModel extends CoreEntityModel {
   latitude?: string;
 }
 
-// export interface UserBatteryModel {}
+export interface CreateBatteryModel {
+  name: string;
+  longitude?: string;
+  latitude?: string;
+}
+
+export interface UpdateBatteryModel {
+  name?: string;
+  longitude?: string;
+  latitude?: string;
+}
