@@ -38,7 +38,7 @@ describe('ApiAuthService', () => {
   });
 
   it('login should return AccessToken', () => {
-    const user: JwtPayload = { id: '123', email: 'a@a.com', roles: [] };
+    const user: Omit<JwtPayload, 'iat' | 'exp'> = { id: '123', email: 'a@a.com', roles: [] };
     jest.mocked(jwtService).sign.mockReturnValueOnce('token');
 
     const result = service.login(user);
