@@ -57,6 +57,10 @@ export class WebAuthService {
     this.localStorage.setItem(WEB_AUTH_LOCALSTORAGE_KEY, access_token);
   }
 
+  private removeToken(): void {
+    this.localStorage.removeItem(WEB_AUTH_LOCALSTORAGE_KEY);
+  }
+
   public init(): void {
     const access_token = this.access_token;
     if (access_token) {
@@ -67,8 +71,14 @@ export class WebAuthService {
   }
 
   public login(access_token: string) {
-    this.setToken(access_token);
     const user: JwtPayload = jwtDecode(access_token);
-    this.state.next({ access_token, user, loginAttempted: true });
+
+    if (Date.now() > new Date(user.exp * 1000).getTime()) {
+      this.removeToken();
+      this.state.next({ loginAttempted: true });
+    } else {
+      this.setToken(access_token);
+      this.state.next({ access_token, user, loginAttempted: true });
+    }
   }
 }
