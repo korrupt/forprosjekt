@@ -30,7 +30,7 @@ export class ApiBatteryAclAdapter {
     const permission = auth.read(null, AccessResource.BATTERY); //read:any
     if (!permission.granted) {
       const type = await this.userBattery.getBatteryManagerType(batteryId, auth.id);
-      if (!type || type !== BatteryManagerType.ADMIN) {
+      if (!type) {
         throw new ForbiddenException('Not admin.');
       }
     }
@@ -38,7 +38,7 @@ export class ApiBatteryAclAdapter {
     const entity = await this.battery.findOne(batteryId, true);
 
     const newPermission = auth.read({ ownerId: auth.id }, AccessResource.BATTERY); // override logic
-    if (newPermission.granted) throw new ForbiddenException();
+    if (!newPermission.granted) throw new ForbiddenException();
 
     return newPermission.filter(entity);
   }

@@ -11,20 +11,23 @@ export class ApiUserBatteryAclAdapter {
 
   public async createUserBattery(auth: AuthUser, body: CreateUserBatteryDto) {
     if (!auth.id) throw new UnauthorizedException();
-
-    const { batteryId } = body;
     const permission = auth.create(null, AccessResource.USER_BATTERY);
     if (!permission.granted) {
-      const type = await this.userBattery.getBatteryManagerType(batteryId, auth.id);
-      if (!type || type !== BatteryManagerType.ADMIN) {
-        throw new ForbiddenException('Not admin.');
-      }
+      console.log('?+');
+      throw new ForbiddenException();
     }
+    // console.log(permission);
+    // if (!permission.granted) {
+    //   const type = await this.userBattery.getBatteryManagerType(batteryId, auth.id);
+    //   if (!type || type !== BatteryManagerType.ADMIN) {
+    //     throw new ForbiddenException('Not admin.');
+    //   }
+    // }
 
     const entity = await this.userBattery.create(body);
 
     const newPermission = auth.read({ ownerId: auth.id }, AccessResource.USER_BATTERY); // override logic
-    if (newPermission.granted) throw new ForbiddenException();
+    if (!newPermission.granted) throw new ForbiddenException();
 
     return newPermission.filter(entity);
   }
@@ -50,7 +53,7 @@ export class ApiUserBatteryAclAdapter {
     if (!permission.granted) throw new ForbiddenException();
 
     const result = await this.userBattery.findFromUserRelation(user);
-    return permission.filter(result);
+    return result ? permission.filter(result) : null;
   }
 
   public async findFromBatteryRelation(auth: AuthUser, battery: Battery) {
@@ -58,6 +61,6 @@ export class ApiUserBatteryAclAdapter {
     if (!permission.granted) throw new ForbiddenException();
 
     const result = await this.userBattery.findFromBatteryRelation(battery);
-    return permission.filter(result);
+    return result ? permission.filter(result) : null;
   }
 }
