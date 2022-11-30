@@ -1,7 +1,8 @@
 import { UserAuthModel } from '@forprosjekt/shared/models';
 import { User } from './user.entity';
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Entity, PrimaryGeneratedColumn, Column, Unique, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, Unique, OneToOne, JoinColumn } from 'typeorm';
+import { CoreEntity } from '@forprosjekt/api/database/utils';
 
 export enum UserAuthConstraints {
   EMAIL = 'UQ_USER_AUTH_EMAIL',
@@ -10,11 +11,7 @@ export enum UserAuthConstraints {
 @ObjectType()
 @Entity('user_auth')
 @Unique(UserAuthConstraints.EMAIL, ['email'])
-export class UserAuth implements UserAuthModel {
-  @Field(() => String)
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
+export class UserAuth extends CoreEntity implements UserAuthModel {
   @Field(() => String)
   @Column()
   salt: string;

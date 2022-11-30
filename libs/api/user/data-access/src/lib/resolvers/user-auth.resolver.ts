@@ -4,7 +4,7 @@ import { Resolver, Mutation, Args } from '@nestjs/graphql';
 import { ApiUserAuthService } from '../services';
 
 @Resolver()
-export class UserAuthResolver {
+export class ApiUserAuthResolver {
   constructor(private userAuth: ApiUserAuthService) {}
 
   @Mutation(() => AccessToken)

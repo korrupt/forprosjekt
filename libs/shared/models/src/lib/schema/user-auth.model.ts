@@ -1,6 +1,7 @@
+import { CoreEntityModel } from './core-entity.model';
 import { CreateUserModel } from './user.model';
 
-export interface UserAuthModel {
+export interface UserAuthModel extends CoreEntityModel {
   email: string;
   salt: string;
   hash: string;

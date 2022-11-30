@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { isApolloError } from '@apollo/client/errors';
 import { LoginWithEmailPasswordModel } from '@forprosjekt/shared/models';
@@ -12,7 +12,7 @@ import { catchError, EMPTY } from 'rxjs';
   templateUrl: './auth-login.component.html',
   styleUrls: ['./auth-login.component.scss'],
 })
-export class AuthLoginComponent {
+export class AuthLoginComponent implements OnDestroy {
   constructor(
     private navbar: NavbarService,
     private fb: FormBuilder,
@@ -67,5 +67,9 @@ export class AuthLoginComponent {
         this.auth.login(access_token);
         this.loading = false;
       });
+  }
+
+  ngOnDestroy(): void {
+    this.layer.release();
   }
 }

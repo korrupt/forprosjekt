@@ -1,5 +1,5 @@
 import { LoginWithEmailPasswordDto, RegisterWithEmailPasswordDto, User, UserAuth } from '@forprosjekt/api/user/utils';
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 
 import * as bcrypt from 'bcryptjs';
 import { ApiAuthService } from '@forprosjekt/api/auth/data-access';
@@ -16,6 +16,11 @@ export class ApiUserAuthService {
     private em: EntityManager,
   ) {}
 
+  private async generateUserId(): Promise<{ id: string }> {
+    const [{ id }] = await this.em.query('SELECT uuid_generate_v4() as id');
+    return { id };
+  }
+
   private async findUserAuthByEmail(email: string): Promise<UserAuth | undefined> {
     return this.userAuth.findOneBy({ email });
   }
@@ -30,16 +35,18 @@ export class ApiUserAuthService {
       throw new ForbiddenException(`Email is already in use.`);
     }
 
+    const { id: ownerId } = await this.generateUserId();
+
     // run in transaction
     return this.em.transaction(async (em) => {
-      const user = await em.save(User, _user);
+      const user = await em.save(User, { ..._user, id: ownerId, ownerId });
 
       const salt = await bcrypt.genSalt();
       const hash = await bcrypt.hash(_auth.password, salt);
 
-      const auth = await em.save(UserAuth, { email: _auth.email, salt, hash, user });
+      const auth = await em.save(UserAuth, { email: _auth.email, salt, hash, user, ownerId });
 
-      return this.auth.login({ userId: user.id, email: auth.email });
+      return this.auth.login({ id: user.id, email: auth.email, roles: user.roles });
     });
   }
 
@@ -57,6 +64,6 @@ export class ApiUserAuthService {
       throw new ForbiddenException(`User/Password combination wrong`);
     }
 
-    return this.auth.login({ userId: userAuth.user.id, email });
+    return this.auth.login({ id: userAuth.user.id, email, roles: userAuth.user.roles });
   }
 }

@@ -1,1 +1,1 @@
-export * from './lib/api-database-utils.module';
+export * from './lib/classes';

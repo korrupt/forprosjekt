@@ -2,15 +2,9 @@
   "name": "forprosjekt",
   "version": "0.0.0",
   "license": "MIT",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "*.{js,json,css,scss,md,ts,html,graphql}": [
-      "yarn format --uncommitted",
-      "nx format:write"
+      "yarn format --uncommitted"
     ]
   },
   "scripts": {
@@ -78,6 +72,7 @@
     "joi": "^17.7.0",
     "jwt-decode": "^3.1.2",
     "mqtt": "^4.3.7",
+    "nest-access-control": "^2.2.0",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
     "pg": "^8.8.0",

@@ -26,9 +26,11 @@ export class WebAuthService {
     map(({ user }) => !!user),
   );
 
-  public readonly user$ = this.state$.pipe(
+  public readonly user$ = this.state$.pipe(map(({ user }) => user));
+
+  public readonly token$ = this.state$.pipe(
     filter(({ loginAttempted }) => loginAttempted),
-    map(({ user }) => user),
+    map((state) => state.access_token),
   );
 
   // fix SSR
