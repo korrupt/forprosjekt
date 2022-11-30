@@ -25,6 +25,11 @@ export class ApiUserBatteryService {
   }
 
   public async create(body: CreateUserBatteryDto, ownerId: string) {
+    const { userId, batteryId } = body;
+
+    //TODO: rydd
+    await Promise.all([this.findUserById(userId), this.findBatteryById(batteryId)]);
+
     return this.userBattery.save({ ...body, ownerId });
   }
 
