@@ -13,10 +13,18 @@ export class CreateUserBatteryDto implements CreateUserBatteryModel {
   @IsNotEmpty()
   @IsEnum(BatteryManagerType)
   type: BatteryManagerType;
+
+  @IsOptional()
+  @IsUUID('4')
+  ownerId: string;
 }
 
 export class UpdateUserBatteryDto implements UpdateUserBatteryModel {
   @IsOptional()
   @IsEnum(BatteryManagerType)
   type: BatteryManagerType;
+
+  @IsOptional()
+  @IsUUID('4')
+  ownerId: string;
 }

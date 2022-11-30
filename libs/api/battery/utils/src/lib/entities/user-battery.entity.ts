@@ -1,11 +1,13 @@
-import { CoreEntity } from '@forprosjekt/api/database/utils';
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Battery } from './battery.entity';
 import { User } from '@forprosjekt/api/user/utils';
 import { BatteryManagerType, UserBatteryModel } from '@forprosjekt/shared/models';
 
 @Entity('user_battery')
-export class UserBattery extends CoreEntity implements UserBatteryModel {
+export class UserBattery implements UserBatteryModel {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
   @Column()
   batteryId: string;
 

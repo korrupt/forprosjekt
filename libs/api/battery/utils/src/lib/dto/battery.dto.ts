@@ -1,6 +1,6 @@
 import { CreateBatteryModel, UpdateBatteryModel } from '@forprosjekt/shared/models';
-import { Field, InputType } from '@nestjs/graphql';
-import { IsNotEmpty, IsNumberString, IsOptional, IsString } from 'class-validator';
+import { Field, ID, InputType } from '@nestjs/graphql';
+import { IsNotEmpty, IsNumberString, IsOptional, IsString, IsUUID } from 'class-validator';
 
 @InputType()
 export class CreateBatteryDto implements CreateBatteryModel {
@@ -18,6 +18,11 @@ export class CreateBatteryDto implements CreateBatteryModel {
   @IsNumberString()
   @Field(() => String, { nullable: true })
   latitude?: string;
+
+  @IsOptional()
+  @IsUUID('4')
+  @Field(() => ID, { nullable: true })
+  ownerId?: string;
 }
 
 @InputType()
@@ -36,4 +41,9 @@ export class UpdateBatteryDto implements UpdateBatteryModel {
   @IsNumberString()
   @Field(() => String, { nullable: true })
   latitude?: string;
+
+  @IsOptional()
+  @IsUUID('4')
+  @Field(() => ID, { nullable: true })
+  ownerId?: string;
 }

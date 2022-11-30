@@ -1,5 +1,6 @@
 import { Battery, CreateUserBatteryDto, UpdateUserBatteryDto, UserBattery } from '@forprosjekt/api/battery/utils';
 import { User } from '@forprosjekt/api/user/utils';
+import { BatteryManagerType } from '@forprosjekt/shared/models';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -54,6 +55,11 @@ export class ApiUserBatteryService {
 
   public async findFromBatteryRelation(battery: Battery) {
     return this.userBattery.findBy({ batteryId: battery.id });
+  }
+
+  public async getBatteryManagerType(batteryId: string, userId: string): Promise<BatteryManagerType | undefined> {
+    const found = await this.userBattery.findOneBy({ userId, batteryId });
+    return found?.type;
   }
 
   public async update(id: string, body: UpdateUserBatteryDto) {

@@ -1,15 +1,15 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
-import { ApiBatteryService } from '../services';
+import { ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { ApiBatteryService, ApiUserBatteryService } from '../services';
 import { AuthUser } from '@forprosjekt/api/auth/utils';
 import { CreateBatteryDto, UpdateBatteryDto } from '@forprosjekt/api/battery/utils';
-import { AccessResource } from '@forprosjekt/shared/models';
+import { AccessResource, BatteryManagerType } from '@forprosjekt/shared/models';
 
 @Injectable()
 export class ApiBatteryAclAdapter {
-  constructor(private battery: ApiBatteryService) {}
+  constructor(private battery: ApiBatteryService, private userBattery: ApiUserBatteryService) {}
 
   public async createBattery(auth: AuthUser, body: CreateBatteryDto) {
-    const permission = auth.create({ ownerId: auth.id }, AccessResource.BATTERY);
+    const permission = auth.create(null, AccessResource.BATTERY); // create:any
     if (!permission.granted) throw new ForbiddenException();
 
     const filteredDto = permission.filter(body);
@@ -25,24 +25,41 @@ export class ApiBatteryAclAdapter {
   }
 
   public async findOneBattery(auth: AuthUser, batteryId: string) {
-    const entity = await this.battery.findOne(batteryId, true);
-    const permission = auth.read(entity, AccessResource.BATTERY);
-    if (!permission.granted) throw new ForbiddenException();
+    if (!auth.id) throw new UnauthorizedException();
 
-    return permission.filter(entity);
+    const permission = auth.read(null, AccessResource.BATTERY); //read:any
+    if (!permission.granted) {
+      const type = await this.userBattery.getBatteryManagerType(batteryId, auth.id);
+      if (!type || type !== BatteryManagerType.ADMIN) {
+        throw new ForbiddenException('Not admin.');
+      }
+    }
+
+    const entity = await this.battery.findOne(batteryId, true);
+
+    const newPermission = auth.read({ ownerId: auth.id }, AccessResource.BATTERY); // override logic
+    if (newPermission.granted) throw new ForbiddenException();
+
+    return entity; //TODO: fix
   }
 
   public async updateBattery(auth: AuthUser, batteryId: string, body: UpdateBatteryDto) {
-    const entity = await this.battery.findOne(batteryId, true);
-    const permission = auth.update(entity, AccessResource.BATTERY);
-    if (!permission.granted) throw new ForbiddenException();
+    if (!auth.id) throw new UnauthorizedException();
+    const permission = auth.update(null, AccessResource.BATTERY);
+
+    if (!permission.granted) {
+      const type = await this.userBattery.getBatteryManagerType(batteryId, auth.id);
+      if (!type || type !== BatteryManagerType.ADMIN) {
+        throw new ForbiddenException('Not admin.');
+      }
+    }
 
     const filteredDto = permission.filter(body);
     const result = await this.battery.update(batteryId, filteredDto);
 
-    const readPermission = auth.read(entity, AccessResource.BATTERY);
+    const readPermission = auth.read({ ownerId: auth.id }, AccessResource.BATTERY); // override logic
     if (readPermission.granted) throw new ForbiddenException();
 
-    return readPermission.filter(result);
+    return result;
   }
 }

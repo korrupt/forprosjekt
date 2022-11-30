@@ -1,6 +1,6 @@
 import { CoreEntityModel } from './core-entity.model';
 
-export interface BatteryModel extends CoreEntityModel {
+export interface BatteryModel extends Omit<CoreEntityModel, 'ownerId'> {
   name: string;
   longitude?: string;
   latitude?: string;

@@ -14,8 +14,10 @@ export interface CreateUserBatteryModel {
   userId: string;
   batteryId: string;
   type: BatteryManagerType;
+  ownerId?: string;
 }
 
 export interface UpdateUserBatteryModel {
   type?: BatteryManagerType;
+  ownerId?: string;
 }
