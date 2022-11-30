@@ -1,13 +1,15 @@
 import { ApolloGuard, AuthUser, GQLAuth } from '@forprosjekt/api/auth/utils';
+import { ApiUserBatteryAclAdapter } from '@forprosjekt/api/battery/data-access';
+import { UserBattery } from '@forprosjekt/api/battery/utils';
 import { UpdateUserDto, User } from '@forprosjekt/api/user/utils';
 import { ForbiddenException, UseGuards } from '@nestjs/common';
-import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, ID, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { ApiUserAclAdapter } from '../adapters';
 
-@Resolver()
+@Resolver(() => User)
 @UseGuards(ApolloGuard)
 export class ApiUserResolver {
-  constructor(private user: ApiUserAclAdapter) {}
+  constructor(private user: ApiUserAclAdapter, private userBattery: ApiUserBatteryAclAdapter) {}
 
   @Query(() => [User], { name: 'users' })
   public findUsers(@GQLAuth() auth: AuthUser) {
@@ -32,5 +34,10 @@ export class ApiUserResolver {
     @Args('body') body: UpdateUserDto,
   ) {
     return this.user.updateUser(auth, userId, body);
+  }
+
+  @ResolveField(() => [UserBattery], { name: 'batteries' })
+  public getUserBatteriesFromUserRelation(@GQLAuth() auth: AuthUser, @Parent() parent: User) {
+    return this.userBattery.findFromUserRelation(auth, parent);
   }
 }

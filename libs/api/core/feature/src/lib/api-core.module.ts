@@ -1,12 +1,13 @@
 import { ApiApolloModule } from '@forprosjekt/api/apollo/feature';
 import { ApiAuthModule } from '@forprosjekt/api/auth/feature';
+import { ApiBatteryModule } from '@forprosjekt/api/battery/feature';
 import { ApiDatabaseModule } from '@forprosjekt/api/database/feature';
 import { ApiUserModule } from '@forprosjekt/api/user/feature';
 import { Module, ValidationPipe } from '@nestjs/common';
 import { APP_PIPE } from '@nestjs/core';
 
 @Module({
-  imports: [ApiDatabaseModule, ApiAuthModule, ApiUserModule, ApiApolloModule],
+  imports: [ApiDatabaseModule, ApiAuthModule, ApiUserModule, ApiApolloModule, ApiBatteryModule],
   providers: [
     {
       provide: APP_PIPE,

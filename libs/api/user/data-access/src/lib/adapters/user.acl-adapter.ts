@@ -17,18 +17,25 @@ export class ApiUserAclAdapter {
   }
 
   public async findUser(auth: AuthUser, id: string, throws?: boolean) {
-    const permission = auth.read({ ownerId: id }, AccessResource.USER);
+    const result = await this.user.findUser(id, throws);
+    const permission = auth.read(result, AccessResource.USER);
     if (!permission.granted) throw new ForbiddenException();
 
-    const result = await this.user.findUser(id, throws);
     return permission.filter(result);
   }
 
   public async updateUser(auth: AuthUser, id: string, body: UpdateUserDto) {
-    const permission = auth.update({ ownerId: id }, AccessResource.USER);
-    if (!permission.granted) throw new ForbiddenException();
+    const user = await this.user.findUser(id);
 
-    const filteredDto = permission.filter(body);
-    return this.user.updateUser(id, filteredDto);
+    const updatePermission = auth.update(user, AccessResource.USER);
+    if (!updatePermission.granted) throw new ForbiddenException();
+
+    const filteredDto = updatePermission.filter(body);
+    const result = await this.user.updateUser(id, filteredDto);
+
+    const readPermission = auth.read(result, AccessResource.USER);
+    if (!readPermission.granted) throw new ForbiddenException();
+
+    return readPermission.filter(result);
   }
 }

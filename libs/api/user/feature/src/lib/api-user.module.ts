@@ -10,9 +10,10 @@ import {
   ApiUserAclAdapter,
 } from '@forprosjekt/api/user/data-access';
 import { ApiAuthModule } from '@forprosjekt/api/auth/feature';
+import { ApiBatteryModule } from '@forprosjekt/api/battery/feature';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User, UserAuth]), ApiAuthModule],
+  imports: [ApiBatteryModule, TypeOrmModule.forFeature([User, UserAuth]), ApiAuthModule],
   providers: [ApiUserService, ApiUserAuthService, ApiUserResolver, ApiUserAuthResolver, ApiUserAclAdapter],
 })
 export class ApiUserModule {}

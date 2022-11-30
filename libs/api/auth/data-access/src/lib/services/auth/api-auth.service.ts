@@ -8,7 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 export class ApiAuthService {
   constructor(private conf: ApiAuthConfigService, private jwt: JwtService) {}
 
-  public login(user: JwtPayload): AccessToken {
+  public login(user: Omit<JwtPayload, 'iat' | 'exp'>): AccessToken {
     const roles = user.roles.concat(AccessRole.USER);
     const _user = { ...user, roles };
 
