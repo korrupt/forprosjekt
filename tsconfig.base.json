@@ -23,6 +23,8 @@
       "@forprosjekt/api/auth/data-access": ["libs/api/auth/data-access/src/index.ts"],
       "@forprosjekt/api/auth/feature": ["libs/api/auth/feature/src/index.ts"],
       "@forprosjekt/api/auth/utils": ["libs/api/auth/utils/src/index.ts"],
+      "@forprosjekt/api/battery/feature": ["libs/api/battery/feature/src/index.ts"],
+      "@forprosjekt/api/battery/utils": ["libs/api/battery/utils/src/index.ts"],
       "@forprosjekt/api/core/config": ["libs/api/core/config/src/index.ts"],
       "@forprosjekt/api/core/feature": ["libs/api/core/feature/src/index.ts"],
       "@forprosjekt/api/database/cli": ["libs/api/database/cli/src/index.ts"],

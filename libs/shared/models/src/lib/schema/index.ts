@@ -1,3 +1,4 @@
-export * from './user.model';
+export * from './battery.model';
 export * from './core-entity.model';
 export * from './user-auth.model';
+export * from './user.model';
