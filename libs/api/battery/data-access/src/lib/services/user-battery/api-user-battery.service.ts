@@ -25,13 +25,13 @@ export class ApiUserBatteryService {
     return found;
   }
 
-  public async create(body: CreateUserBatteryDto, ownerId: string) {
+  public async create(body: CreateUserBatteryDto) {
     const { userId, batteryId } = body;
 
     //TODO: rydd
     await Promise.all([this.findUserById(userId), this.findBatteryById(batteryId)]);
 
-    return this.userBattery.save({ ...body, ownerId });
+    return this.userBattery.save({ ...body });
   }
 
   public async find() {

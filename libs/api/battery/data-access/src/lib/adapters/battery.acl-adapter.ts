@@ -40,7 +40,7 @@ export class ApiBatteryAclAdapter {
     const newPermission = auth.read({ ownerId: auth.id }, AccessResource.BATTERY); // override logic
     if (newPermission.granted) throw new ForbiddenException();
 
-    return entity; //TODO: fix
+    return newPermission.filter(entity);
   }
 
   public async updateBattery(auth: AuthUser, batteryId: string, body: UpdateBatteryDto) {
