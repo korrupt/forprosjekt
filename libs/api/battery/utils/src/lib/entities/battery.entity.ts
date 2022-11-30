@@ -11,12 +11,12 @@ export class Battery extends CoreEntity implements BatteryModel {
   name: string;
 
   //TODO: make GEOJSON
-  @Column()
+  @Column({ nullable: true })
   @Field(() => String, { nullable: true })
   longitude?: string;
 
   //TODO: make GEOJSON
-  @Column()
+  @Column({ nullable: true })
   @Field(() => String, { nullable: true })
   latitude?: string;
 }
