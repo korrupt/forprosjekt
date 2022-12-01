@@ -13,6 +13,8 @@ jest.mock('bcryptjs', () => ({
   hash: jest.fn(() => 'hash'),
 }));
 
+jest.mock('@nestjs/config'); // Hvorfor er dette nødvendig?
+
 describe('ApiUserAuthService', () => {
   let service: ApiUserAuthService;
   let userAuth: Repository<UserAuth>;

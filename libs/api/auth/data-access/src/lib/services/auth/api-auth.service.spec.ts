@@ -1,10 +1,10 @@
 import { ApiAuthConfigService } from '@forprosjekt/api/auth/config';
-import { AccessRole, JwtPayload } from '@forprosjekt/shared/models';
+import { JwtPayload } from '@forprosjekt/shared/models';
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ApiAuthService } from './api-auth.service';
 
-import {} from 'jest';
+jest.mock('@nestjs/config'); // ????
 
 describe('ApiAuthService', () => {
   let service: ApiAuthService;
@@ -18,6 +18,7 @@ describe('ApiAuthService', () => {
           provide: ApiAuthConfigService,
           useValue: {
             EXPIRY: '2h',
+            SECRET: '123',
           },
         },
         {
