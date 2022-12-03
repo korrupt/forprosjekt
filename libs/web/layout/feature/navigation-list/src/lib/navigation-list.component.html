@@ -1,9 +1,5 @@
 <mat-nav-list class="forprosjekt-navigation-list">
-  <a mat-list-item
-    *ngFor="let route of routes"
-    [class.active]="routeIsActive(route)"
-    [routerLink]="[route.path]"
-  >
+  <a mat-list-item *ngFor="let route of (routes$ | async)" [class.active]="routeIsActive(route)" [routerLink]="[route.path]">
     <mat-icon matListItemIcon>{{ route.icon }}</mat-icon>
     <h3 matLine>{{ route.name }}</h3>
     <div class="overlay"><div></div></div>

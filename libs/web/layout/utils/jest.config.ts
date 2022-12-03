@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
-  displayName: 'web-layout-ui-navigation-list',
-  preset: '../../../../../jest.preset.js',
+  displayName: 'web-layout-utils',
+  preset: '../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -9,7 +9,7 @@ export default {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../../../../coverage/libs/web/layout/ui/navigation-list',
+  coverageDirectory: '../../../../coverage/libs/web/layout/utils',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },
