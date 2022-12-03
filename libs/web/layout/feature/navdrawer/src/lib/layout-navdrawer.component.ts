@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { map } from 'rxjs';
+import { map, take } from 'rxjs';
 
 import { NavbarService, WebAuthService } from '@forprosjekt/web/shared/data-access';
 import { NavbarLayerInstance } from '@forprosjekt/web/shared/utils';
@@ -11,17 +11,29 @@ import { NavbarLayerInstance } from '@forprosjekt/web/shared/utils';
   styleUrls: ['./layout-navdrawer.component.scss'],
 })
 export class LayoutNavdrawerComponent implements OnInit {
-  constructor(private bpo: BreakpointObserver, private navbar: NavbarService, private webAuth: WebAuthService) {}
+  constructor(private bpo: BreakpointObserver, private navbar: NavbarService, private webAuth: WebAuthService) {
+    this.init();
+  }
 
   readonly user$ = this.webAuth.user$;
 
-  closedLayer = this.navbar.registerNavbarLayer({
-    button: 'menu',
-    theme: {
-      background: 'var(--primary)',
-      color: 'var(--primary-contrast)',
+  private baseNavbarLayer = this.navbar.registerNavbarLayer(
+    {
+      theme: {
+        background: 'var(--primary)',
+        color: 'var(--primary-contrast)',
+      },
     },
-  });
+    0,
+  );
+
+  closedLayer = this.navbar.registerNavbarLayer(
+    {
+      button: 'menu',
+    },
+    1,
+  );
+
   closedButtonSub = this.closedLayer.buttonClicked$.subscribe(() => {
     this.opened = true;
     this.attachOpenLayer();
@@ -33,9 +45,12 @@ export class LayoutNavdrawerComponent implements OnInit {
   opened = false;
 
   private attachOpenLayer(): void {
-    this.openLayer = this.navbar.registerNavbarLayer({
-      button: 'clear',
-    });
+    this.openLayer = this.navbar.registerNavbarLayer(
+      {
+        button: 'clear',
+      },
+      2,
+    );
 
     this.openLayer.buttonClicked$.subscribe(() => {
       this.openLayer?.release();
@@ -46,6 +61,22 @@ export class LayoutNavdrawerComponent implements OnInit {
   handleBackdropClick(): void {
     this.openLayer?.release();
     this.opened = false;
+  }
+
+  private init() {
+    this.bpo
+      .observe('(min-width: 1300px)')
+      .pipe(map((state) => state.breakpoints['(min-width: 1300px)']))
+      .subscribe((isDesktop) => {
+        if (isDesktop) {
+          this.openLayer?.hide();
+          this.closedLayer.hide();
+          this.opened = true;
+        } else {
+          this.openLayer?.show();
+          this.closedLayer.show();
+        }
+      });
   }
 
   ngOnInit(): void {

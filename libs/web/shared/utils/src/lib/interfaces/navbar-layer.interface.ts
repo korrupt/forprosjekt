@@ -1,13 +1,14 @@
 export type NavbarAction = { name: string; title: string };
 
 export interface NavbarLayer {
-  id: number;
+  id: string;
   title?: string;
   theme?: {
     color: string;
     background: string | 'transparent';
     border?: boolean;
   };
+  hidden?: boolean;
   button?: string;
   actions?: NavbarAction[];
   disableTitleTransition?: boolean;

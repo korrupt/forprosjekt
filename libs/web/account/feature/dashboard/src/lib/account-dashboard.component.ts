@@ -19,6 +19,7 @@ export class AccountDashboardComponent implements OnDestroy {
 
   private layer = this.navbar.registerNavbarLayer({
     title: 'Account',
+    // button: 'home',
   });
 
   ngOnDestroy(): void {

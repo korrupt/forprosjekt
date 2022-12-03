@@ -4,8 +4,8 @@ import { NavbarLayer } from '../../interfaces/navbar-layer.interface';
 export class NavbarLayerInstance<T extends NavbarLayer = NavbarLayer> {
   constructor(
     private layer: T,
-    private buttonStream$: Observable<{ id: number }>,
-    private actionStream$: Observable<{ id: number; action: string }>,
+    private buttonStream$: Observable<Pick<NavbarLayer, 'id'>>,
+    private actionStream$: Observable<Pick<NavbarLayer, 'id'> & { action: string }>,
   ) {}
 
   private onRelease = new Subject<void>();
@@ -28,6 +28,14 @@ export class NavbarLayerInstance<T extends NavbarLayer = NavbarLayer> {
 
   public update(changes: Partial<Omit<NavbarLayer, 'id'>>): void {
     this.onChanges.next(changes);
+  }
+
+  public hide() {
+    this.onChanges.next({ hidden: true });
+  }
+
+  public show() {
+    this.onChanges.next({ hidden: false });
   }
 
   public release(): void {

@@ -32,7 +32,7 @@ export class LayoutNavbarComponent {
     distinctUntilChanged(),
   );
 
-  emitButton(id: number) {
+  emitButton(id: string) {
     this.navbar._buttonClicked(id);
   }
 }
