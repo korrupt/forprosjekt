@@ -1,0 +1,7 @@
+@use 'round.mixin' as _;
+
+@mixin card($radius: 4px) {
+  @include _.round($radius);
+
+  background-color: var(--background-card);
+}

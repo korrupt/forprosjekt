@@ -1,5 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { isApolloError } from '@apollo/client/errors';
 import { LoginWithEmailPasswordModel } from '@forprosjekt/shared/models';
 import { LoginMutation } from '@forprosjekt/web/auth/utils';
@@ -18,6 +19,7 @@ export class AuthLoginComponent implements OnDestroy {
     private fb: FormBuilder,
     private apollo: Apollo,
     private auth: WebAuthService,
+    private router: Router,
   ) {}
 
   loading = false;
@@ -66,6 +68,8 @@ export class AuthLoginComponent implements OnDestroy {
         const access_token = data.user.access_token;
         this.auth.login(access_token);
         this.loading = false;
+
+        this.router.navigateByUrl('/account');
       });
   }
 

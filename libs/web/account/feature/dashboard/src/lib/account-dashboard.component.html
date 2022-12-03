@@ -1,13 +1,19 @@
-<div class="welcome">
+<section class="welcome">
   <h3>Welcome back,</h3>
   <h4>{{ name$ | async }}!</h4>
-</div>
-<div class="forprosjekt-account-dashboard">
-  <!-- <div class="item welcome">
+</section>
 
-  </div> -->
-</div>
-
+<section class="batteries">
+  <h3 class="divider">Batteries</h3>
+  <div class="wrapper">
+    <ul class="battery-grid">
+      <li class="battery" *ngFor="let user_battery of (batteries$ | async)">
+        <h4>{{ user_battery.battery.name }}</h4>
+        <p>{{ user_battery.type }}</p>
+      </li>
+    </ul>
+  </div>
+</section>
 
 <ng-template #isLoading>
   <mat-spinner></mat-spinner>

@@ -15,6 +15,8 @@ export class AccountDashboardComponent implements OnDestroy {
 
   name$ = this.account.account$.pipe(map(({ data }) => data.user.name));
 
+  batteries$ = this.account$.pipe(map(({ data }) => data.user.batteries));
+
   private layer = this.navbar.registerNavbarLayer({
     title: 'Account',
   });

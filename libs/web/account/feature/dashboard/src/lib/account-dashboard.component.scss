@@ -1,6 +1,34 @@
 @use 'layout/mixins' as mixins;
 @use '@angular/material' as mat;
 
+section {
+  position: relative;
+  padding: 24px 16px;
+  h3 {
+    font-weight: 500;
+    margin: 0;
+    font-size: 1.2rem;
+  }
+
+  display: flex;
+  flex-direction: column;
+
+  .divider {
+    position: relative;
+    padding: 0 0 8px;
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      border-bottom: 1px solid var(--secondary-text);
+    }
+  }
+}
+
 .welcome {
   position: relative;
   padding: 24px 16px;
@@ -15,19 +43,30 @@
   }
 }
 
-.forprosjekt-account-dashboard {
-  @include mixins.grid();
-  .item {
-    padding: 8px 16px 24px;
-    grid-column: span 4;
-    background: var(--background-card);
-    @include mixins.round(4px);
+.batteries {
+  .wrapper {
+    padding: 12px 0;
+  }
 
-    @include mixins.screen('tablet-md') {
-    }
+  .battery-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
 
-    h3 {
-      margin: 0;
+    .battery {
+      @include mixins.card;
+      position: relative;
+      width: 100%;
+      height: 200px;
+      padding: 24px;
+      box-sizing: border-box;
+      h4 {
+        font-size: 1.2rem;
+        margin: 0;
+      }
     }
   }
 }

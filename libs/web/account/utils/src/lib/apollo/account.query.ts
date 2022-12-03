@@ -1,8 +1,17 @@
-import { UserModel } from '@forprosjekt/shared/models';
+import { BatteryManagerType } from '@forprosjekt/shared/models';
 import { gql } from 'apollo-angular';
 
 export interface AccountQueryResult {
-  readonly user: UserModel;
+  readonly user: {
+    id: string;
+    name: string;
+    batteries: {
+      type: BatteryManagerType;
+      battery: {
+        name: string;
+      };
+    }[];
+  };
 }
 
 export const AccountQuery = gql<AccountQueryResult, any>`
@@ -10,6 +19,12 @@ export const AccountQuery = gql<AccountQueryResult, any>`
     user: me {
       id
       name
+      batteries {
+        type
+        battery {
+          name
+        }
+      }
     }
   }
 `;
