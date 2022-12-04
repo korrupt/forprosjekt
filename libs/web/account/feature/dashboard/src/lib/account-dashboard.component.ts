@@ -18,8 +18,7 @@ export class AccountDashboardComponent implements OnDestroy {
   batteries$ = this.account$.pipe(map(({ data }) => data.user.batteries));
 
   private layer = this.navbar.registerNavbarLayer({
-    title: 'Account',
-    // button: 'home',
+    title: 'Dashboard',
   });
 
   ngOnDestroy(): void {

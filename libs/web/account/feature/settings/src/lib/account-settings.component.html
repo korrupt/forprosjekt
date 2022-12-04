@@ -1,0 +1,12 @@
+<div class="forprosjekt-account-settings">
+  <p>Change your account settings here.</p>
+
+  <h3>User</h3>
+  <form [formGroup]="userFormGroup" (ngSubmit)="submitUserFormGroup($event)">
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input type="text" matInput formControlName="name">
+    </mat-form-field>
+    <button [disabled]="!userFormGroupValid" mat-flat-button color="accent">Save</button>
+  </form>
+</div>

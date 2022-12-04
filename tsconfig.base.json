@@ -38,6 +38,7 @@
       "@forprosjekt/shared/models": ["libs/shared/models/src/index.ts"],
       "@forprosjekt/web/account/data-access": ["libs/web/account/data-access/src/index.ts"],
       "@forprosjekt/web/account/feature/dashboard": ["libs/web/account/feature/dashboard/src/index.ts"],
+      "@forprosjekt/web/account/feature/settings": ["libs/web/account/feature/settings/src/index.ts"],
       "@forprosjekt/web/account/feature/shell": ["libs/web/account/feature/shell/src/index.ts"],
       "@forprosjekt/web/account/utils": ["libs/web/account/utils/src/index.ts"],
       "@forprosjekt/web/auth/feature/login": ["libs/web/auth/feature/login/src/index.ts"],

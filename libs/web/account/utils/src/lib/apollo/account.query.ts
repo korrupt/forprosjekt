@@ -3,6 +3,7 @@ import { gql } from 'apollo-angular';
 
 export interface AccountQueryResult {
   readonly user: {
+    __typename: string;
     id: string;
     name: string;
     batteries: {
@@ -17,6 +18,7 @@ export interface AccountQueryResult {
 export const AccountQuery = gql<AccountQueryResult, any>`
   query AccountQuery {
     user: me {
+      __typename
       id
       name
       batteries {

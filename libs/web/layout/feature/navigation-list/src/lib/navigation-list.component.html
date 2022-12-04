@@ -16,7 +16,7 @@
   </div>
 </ng-template>
 
-<ng-template #route let-route>
+<ng-template #route let-route let-index>
   <a class="route" matRipple [class.active]="routeIsActive(route)" [routerLink]="[route.path]">
     <mat-icon>{{ route.icon }}</mat-icon>
     <h3>{{ route.name }}</h3>
