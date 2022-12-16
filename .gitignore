@@ -17,6 +17,10 @@ node_modules
 !/database/backups
 !/database/data
 
+/mosquitto/**
+!/mosquitto/config
+!/mosquitto/config/mosquitto.conf
+
 # config
 .env
 
