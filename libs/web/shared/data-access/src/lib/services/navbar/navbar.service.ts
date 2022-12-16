@@ -27,6 +27,7 @@ export class NavbarService {
           .reverse()
           .filter((l) => !l.hidden)
           .find((layer) => layer[prop] !== undefined);
+
         if (!found) return undefined;
 
         const id = found.id;

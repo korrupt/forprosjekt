@@ -13,6 +13,19 @@ export class HomeComponent implements OnDestroy {
     title: 'Home',
   });
 
+  secondLayer = this.navbar.registerNavbarLayer({
+    hidden: true,
+    title: '0 Selected',
+    theme: {
+      color: '#FFF',
+      background: '#333',
+    },
+  });
+
+  buttonSub = this.layer.buttonClicked$.subscribe(() => {
+    this.secondLayer.show();
+  });
+
   ngOnDestroy(): void {
     this.layer.release();
   }
