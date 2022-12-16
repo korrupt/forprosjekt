@@ -1,20 +1,42 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
-
-import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { MicroserviceOptions } from '@nestjs/microservices';
+import { MsMqttCoreModule } from '@forprosjekt/ms-mqtt/core/feature';
+import { INestMicroservice } from '@nestjs/common';
+import { getPorts } from 'portfinder';
 
-import { AppModule } from './app/app.module';
+const clientIds = ['battery1', 'battery2', 'battery3'];
+
+const getAvaliablePorts: (num: number) => Promise<number[]> = (num: number) =>
+  new Promise((res, rej) => {
+    getPorts(num, {}, (err, ports) => {
+      if (err) {
+        rej(err);
+      }
+      res(ports);
+    });
+  });
+
+function listenServices(services: INestMicroservice[]) {
+  return Promise.all(services.map((s) => s.listen()));
+}
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  const globalPrefix = 'api';
-  app.setGlobalPrefix(globalPrefix);
-  const port = process.env.PORT || 3333;
-  await app.listen(port);
-  Logger.log(`🚀 Application is running on: http://localhost:${port}/${globalPrefix}`);
+  const services: INestMicroservice[] = [];
+  const ports = await getAvaliablePorts(clientIds.length);
+
+  for (const id of clientIds) {
+    const port = ports.pop();
+    const ms = await NestFactory.createMicroservice<MicroserviceOptions>(MsMqttCoreModule.register(id), {
+      options: {
+        port,
+      },
+    });
+
+    // ms
+    services.push(ms);
+  }
+
+  await listenServices(services);
 }
 
 bootstrap();
