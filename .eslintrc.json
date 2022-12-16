@@ -17,6 +17,10 @@
                 "onlyDependOnLibsWithTags": ["*"]
               },
               {
+                "sourceTap": "scope:ms-mqtt",
+                "onlyDependOnLibsWithTags": ["scope:ms-mqtt"]
+              },
+              {
                 "sourceTag": "scope:web",
                 "onlyDependOnLibsWithTags": ["scope:web"]
               },
@@ -26,21 +30,11 @@
               },
               {
                 "sourceTag": "type:app",
-                "onlyDependOnLibsWithTags": [
-                  "type:feature",
-                  "type:util",
-                  "type:data-access",
-                  "type:ui"
-                ]
+                "onlyDependOnLibsWithTags": ["type:feature", "type:util", "type:data-access", "type:ui"]
               },
               {
                 "sourceTag": "type:feature",
-                "onlyDependOnLibsWithTags": [
-                  "type:feature",
-                  "type:util",
-                  "type:data-access",
-                  "type:ui"
-                ]
+                "onlyDependOnLibsWithTags": ["type:feature", "type:util", "type:data-access", "type:ui"]
               },
               {
                 "sourceTag": "type:ui",
