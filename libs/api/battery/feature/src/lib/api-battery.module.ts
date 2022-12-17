@@ -10,9 +10,11 @@ import {
   ApiUserBatteryResolver,
   ApiUserBatteryService,
 } from '@forprosjekt/api/battery/data-access';
+import { ApiMqttModule } from '@forprosjekt/api/mqtt/feature';
+import { ApiBatteryController } from './controllers/battery.controller';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User, Battery, BatterySnapshot, UserBattery])],
+  imports: [TypeOrmModule.forFeature([User, Battery, BatterySnapshot, UserBattery]), ApiMqttModule],
   providers: [
     ApiBatteryService,
     ApiBatteryAclAdapter,
@@ -22,5 +24,6 @@ import {
     ApiUserBatteryResolver,
   ],
   exports: [ApiUserBatteryAclAdapter, ApiUserBatteryResolver],
+  controllers: [ApiBatteryController],
 })
 export class ApiBatteryModule {}

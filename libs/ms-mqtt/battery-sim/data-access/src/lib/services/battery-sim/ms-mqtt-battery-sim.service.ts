@@ -19,13 +19,14 @@ export class MsMqttBatterySimService implements OnApplicationBootstrap {
 
   private attachInterval(ms: number) {
     this.interval = setInterval(() => {
-      const record = new MqttRecordBuilder().setData('data').setQoS(2).build();
-      this.client.send(`${this.clientId}/data`, record).subscribe();
+      const record = new MqttRecordBuilder().setData('data').setQoS(0).build();
+      this.client.send(`${this.clientId}/snapshot`, record).subscribe();
     }, ms);
   }
 
   private startPublishInterval() {
-    this.attachInterval(this.createRandomMSDelay());
+    this.attachInterval(2000);
+    // this.attachInterval(this.createRandomMSDelay());
     // setTimeout(() => this.attachInterval(), this.createRandomDelay());
   }
 

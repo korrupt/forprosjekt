@@ -1,4 +1,10 @@
-import { Battery, CreateBatteryDto, UpdateBatteryDto, UserBattery } from '@forprosjekt/api/battery/utils';
+import {
+  Battery,
+  CreateBatteryDto,
+  CreateBatterySnapshotDto,
+  UpdateBatteryDto,
+  UserBattery,
+} from '@forprosjekt/api/battery/utils';
 import { User } from '@forprosjekt/api/user/utils';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -11,6 +17,8 @@ export class ApiBatteryService {
     @InjectRepository(User) private user: Repository<User>,
     @InjectRepository(UserBattery) private userBattery: Repository<UserBattery>,
   ) {}
+
+  public createSnapshot(body: CreateBatterySnapshotDto) {}
 
   public async create(body: CreateBatteryDto, ownerId: string) {
     return this.battery.save({ ...body, ownerId });
