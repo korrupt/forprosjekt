@@ -24,9 +24,9 @@ class BatterySim {
     let temperature = parseFloat(sensor.temperature);
     // 50/50 chance to increase or decrease
     if (Math.random() > 0.5) {
-      temperature += Math.floor(2 * Math.random());
+      temperature += 2 * Math.random();
     } else {
-      temperature -= Math.floor(2 * Math.random());
+      temperature -= 2 * Math.random();
     }
 
     return { ...sensor, temperature: clamp(temperature, 50, 80).toFixed(2) };

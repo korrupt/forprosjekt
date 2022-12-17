@@ -8,6 +8,27 @@ import { AccessResource, BatteryManagerType } from '@forprosjekt/shared/models';
 export class ApiBatteryAclAdapter {
   constructor(private battery: ApiBatteryService, private userBattery: ApiUserBatteryService) {}
 
+  public async findLatestBatterySnapshot(auth: AuthUser, batteryId: string) {
+    if (!auth.id) throw new UnauthorizedException();
+
+    const permission = auth.read(null, AccessResource.BATTERY_SNAPSHOT);
+    if (!permission.granted) {
+      const type = await this.userBattery.getBatteryManagerType(batteryId, auth.id);
+      if (!type) {
+        throw new ForbiddenException('Not admin.');
+      }
+    }
+
+    const snapshot = await this.battery.getLatestSnapshot(batteryId);
+    const newPermission = auth.read({ ownerId: auth.id }, AccessResource.BATTERY_SNAPSHOT);
+
+    if (!newPermission.granted) {
+      throw new ForbiddenException();
+    }
+
+    return snapshot ? newPermission.filter(snapshot) : null;
+  }
+
   public async createBattery(auth: AuthUser, body: CreateBatteryDto) {
     const permission = auth.create(null, AccessResource.BATTERY); // create:any
     if (!permission.granted) throw new ForbiddenException();

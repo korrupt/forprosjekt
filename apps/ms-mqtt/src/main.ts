@@ -4,7 +4,11 @@ import { MsMqttCoreModule } from '@forprosjekt/ms-mqtt/core/feature';
 import { INestMicroservice } from '@nestjs/common';
 import { getPorts } from 'portfinder';
 
-const clientIds = ['3dae00a7-1cfe-4bf6-9c86-91399b5938d7'];
+const clientIds = [
+  '3dae00a7-1cfe-4bf6-9c86-91399b5938d7',
+  'c280ccd2-bb21-434a-851a-647cde9cd787',
+  'a919f9a1-91d0-470d-826d-59370db31521',
+];
 // const clientIds = ['battery1', 'battery2', 'battery3'];
 
 const getAvaliablePorts: (num: number) => Promise<number[]> = (num: number) =>

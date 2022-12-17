@@ -10,10 +10,20 @@
       <li class="battery" *ngFor="let user_battery of (batteries$ | async)">
         <h4>{{ user_battery.battery.name }}</h4>
         <p>{{ user_battery.type }}</p>
+        <ul class="temps" *ngIf="user_battery.battery.latest; else nodata">
+          <div class="sensor" *ngFor="let sensor of user_battery.battery.latest.data?.temps">
+            <b>{{ sensor.name }}</b>
+            <p>{{ sensor.temperature }}</p>
+          </div>
+        </ul>
       </li>
     </ul>
   </div>
 </section>
+
+<ng-template #nodata>
+  <b>No snapshot data.</b>
+</ng-template>
 
 <ng-template #isLoading>
   <mat-spinner></mat-spinner>

@@ -10,6 +10,9 @@ export interface AccountQueryResult {
       type: BatteryManagerType;
       battery: {
         name: string;
+        latest: {
+          data: any;
+        };
       };
     }[];
   };
@@ -25,6 +28,9 @@ export const AccountQuery = gql<AccountQueryResult, any>`
         type
         battery {
           name
+          latest {
+            data
+          }
         }
       }
     }

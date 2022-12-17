@@ -22,7 +22,6 @@ export class ApiBatteryService {
 
   public async createSnapshot(body: CreateBatterySnapshotDto) {
     const { id, data } = body;
-
     // check if battery with id exists
     const battery = await this.findOne(id, false);
     if (!battery) {
@@ -31,6 +30,17 @@ export class ApiBatteryService {
     }
 
     await this.batterySnapshot.save({ data, batteryId: id });
+  }
+
+  public async getLatestSnapshot(batteryId: string) {
+    return this.batterySnapshot.findOne({
+      where: {
+        batteryId,
+      },
+      order: {
+        time: 'desc',
+      },
+    });
   }
 
   public async create(body: CreateBatteryDto, ownerId: string) {

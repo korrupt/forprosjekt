@@ -6,6 +6,7 @@ import { GraphQLJSON } from 'graphql-type-json';
 @Entity()
 @ObjectType()
 export class BatterySnapshot {
+  @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

@@ -1,10 +1,10 @@
 import { ApolloGuard, AuthUser, GQLAuth } from '@forprosjekt/api/auth/utils';
-import { Battery, CreateBatteryDto, UpdateBatteryDto } from '@forprosjekt/api/battery/utils';
+import { Battery, BatterySnapshot, CreateBatteryDto, UpdateBatteryDto } from '@forprosjekt/api/battery/utils';
 import { UseGuards } from '@nestjs/common';
-import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, ID, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { ApiBatteryAclAdapter } from '../adapters';
 
-@Resolver()
+@Resolver(() => Battery)
 @UseGuards(ApolloGuard)
 export class ApiBatteryResolver {
   constructor(private battery: ApiBatteryAclAdapter) {}
@@ -31,5 +31,10 @@ export class ApiBatteryResolver {
     @Args('body') body: UpdateBatteryDto,
   ) {
     return this.battery.updateBattery(auth, batteryId, body);
+  }
+
+  @ResolveField(() => BatterySnapshot, { name: 'latest', nullable: true })
+  public async getLatestSnapshot(@GQLAuth() auth: AuthUser, @Parent() parent: Battery) {
+    return this.battery.findLatestBatterySnapshot(auth, parent.id);
   }
 }

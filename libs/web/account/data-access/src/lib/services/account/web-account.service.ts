@@ -11,7 +11,9 @@ export class WebAccountService {
 
   private account = this.apollo.watchQuery({
     query: AccountQuery,
-    fetchPolicy: 'cache-and-network',
+    pollInterval: 500,
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'network-only',
   });
 
   public readonly account$ = this.account.valueChanges;
