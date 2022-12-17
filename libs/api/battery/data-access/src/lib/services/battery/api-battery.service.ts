@@ -1,5 +1,6 @@
 import {
   Battery,
+  BatterySnapshot,
   CreateBatteryDto,
   CreateBatterySnapshotDto,
   UpdateBatteryDto,
@@ -14,11 +15,23 @@ import { Repository } from 'typeorm';
 export class ApiBatteryService {
   constructor(
     @InjectRepository(Battery) private battery: Repository<Battery>,
+    @InjectRepository(BatterySnapshot) private batterySnapshot: Repository<BatterySnapshot>,
     @InjectRepository(User) private user: Repository<User>,
     @InjectRepository(UserBattery) private userBattery: Repository<UserBattery>,
   ) {}
 
-  public createSnapshot(body: CreateBatterySnapshotDto) {}
+  public async createSnapshot(body: CreateBatterySnapshotDto) {
+    const { id, data } = body;
+
+    // check if battery with id exists
+    const battery = await this.findOne(id, false);
+    if (!battery) {
+      console.error(`Tried to save snapshot to unkown battery.`);
+      return;
+    }
+
+    await this.batterySnapshot.save({ data, batteryId: id });
+  }
 
   public async create(body: CreateBatteryDto, ownerId: string) {
     return this.battery.save({ ...body, ownerId });
